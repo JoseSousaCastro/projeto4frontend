@@ -1,8 +1,8 @@
 import React from "react";
-//import Sidebar from "../components/Sidebar";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../index.css'
+import Login from "./Login";
 
 function Home() {
     const [inputs, setInputs] = useState({});
@@ -23,9 +23,13 @@ function Home() {
 
     return (
         <div className="Home" id="home-outer-container">
-        <div className="page-wrap" id="home-page-wrap">
-        <h1>Home</h1>
-        </div>
+            <div className="page-wrap" id="home-page-wrap">
+                <h1>Home</h1>
+                <br />
+                <Link to="/login">Sign in</Link>
+                <br />
+                <Link to="/register">Sign up</Link>
+            </div>
         </div>
     );
 }

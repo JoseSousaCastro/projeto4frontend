@@ -1,8 +1,7 @@
 import React from "react";
-//import Sidebar from "../components/navbar/sidebar";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import '../index.css'
+import { Link, useNavigate } from "react-router-dom";
+import "../pages/Register.css"
 import { userStore } from "../stores/UserStore.jsx";
 
 function Register() {
@@ -27,43 +26,30 @@ function Register() {
     return (
         <div className="Register" id="register-outer-container">
         <div className="page-wrap" id="register-page-wrap">
-        <h1>Register</h1>
-
-        <form onSubmit={handleSubmit}>
-        <label>Enter your username:
-            <input type="text" name="username" defaultValue={inputs.username || ""} onChange={handleChange} />
-        </label>
-        <br />
-        <label>Enter your password:
-            <input type="text" name="password" defaultValue={inputs.password || ""} onChange={handleChange} />
-        </label>
-        <br />
-        <label>Confirm your password:
-            <input type="text" name="passwordConfirm" defaultValue={inputs.passwordConfirm || ""} onChange={handleChange} />
-        </label>
-        <br />
-        <label>Enter your email:
-            <input type="text" name="email" defaultValue={inputs.email || ""} onChange={handleChange} />
-        </label>
-        <br />
-        <label>Enter your first name:
-            <input type="text" name="firstName" defaultValue={inputs.firstName || ""} onChange={handleChange} />
-        </label>
-        <br />
-        <label>Enter your last name:
-            <input type="text" name="lastName" defaultValue={inputs.lastName || ""} onChange={handleChange} />
-        </label>
-        <br />
-        <label>Enter your phone number:
-            <input type="text" name="phone" defaultValue={inputs.phone || ""} onChange={handleChange} />
-        </label>
-        <br />
-        <label>Enter your photo URL:
-            <input type="text" name="photoUrl" defaultValue={inputs.photoUrl || ""} onChange={handleChange} />
-        </label>
-        <br />
-        <input type="submit" value="Register" />
-        </form>
+        <div className="center-container-register">
+            <div className="registerPanel">
+                <img id="logo-register" src="/multimedia/logo-scrum-01.png" alt="Agile-Scrum-logo" width="250" />
+                <form id="registrationForm" className="inputs-register" onSubmit={handleSubmit}>
+                    <div className="right-inputs">
+                        <input type="text" className="inputRegister-fields" id="username-register" name="username" placeholder="Username" onChange={handleChange} required />
+                        <input type="password" className="inputRegister-fields" id="password-register" name="password" placeholder="Password" onChange={handleChange} required />
+                        <input type="password" className="inputRegister-fields" id="passwordConfirm-register" name="passwordConfirm" placeholder="Confirm Password" onChange={handleChange} required />
+                        <input type="email" className="inputRegister-fields" id="email-register" name="email" placeholder="Email" onChange={handleChange} required />
+                    </div>
+                    <div className="left-inputs">
+                        <input type="text" className="inputRegister-fields" id="firstName-register" name="firstName" placeholder="First Name" onChange={handleChange} required />
+                        <input type="text" className="inputRegister-fields" id="lastName-register" name="lastName" placeholder="Last Name" onChange={handleChange} required />
+                        <input type="text" className="inputRegister-fields" id="phone-register" name="phone" placeholder="Phone" onChange={handleChange} required />
+                        <input type="url" className="inputRegister-fields" id="photoURL-register" name="photoURL" placeholder="Photo URL" onChange={handleChange} required />
+                    </div>
+                    <div className="submitButton">
+                        <button type="submit" id="registerButton-register">Sign up</button>
+                    </div>
+                </form>
+                <br />
+                <p>Already have an account? <Link to="/" id="login-link">Sign in</Link></p>
+            </div>
+        </div>
         </div>
         </div>
     );

@@ -1,8 +1,7 @@
 import React from "react";
-//import Sidebar from "../components/Sidebar";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import '../index.css'
+import { Link, useNavigate } from "react-router-dom";
+import "../pages/Login.css"
 import { userStore } from "../stores/UserStore.jsx";
 
 function Login() {
@@ -21,26 +20,22 @@ function Login() {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(inputs);
-        navigate('/home', {replace: true});
+        navigate('/', {replace: true});
         updateName(inputs.username);
     }
 
     return (
         <div className="Login" id="login-outer-container">
         <div className="page-wrap" id="login-page-wrap">
-        <h1>Login</h1>
-
-        <form onSubmit={handleSubmit}>
-        <label>Enter your username:
-            <input type="text" name="username" defaultValue={inputs.username || ""} onChange={handleChange} />
-        </label>
-        <br />
-        <label>Enter your password:
-            <input type="text" name="password" defaultValue={inputs.password || ""} onChange={handleChange} />
-        </label>
-        <br />
-        <input type="submit" value="Login" />
-        </form>
+           <div className="loginpanel">
+                <img src="/multimedia/logo-scrum-01.png" id="logo-login" alt="Agile-Scrum-logo" width="250" />
+                <form id="login-form" className="input-login" onSubmit={handleSubmit}>
+                <input type="text" id="username" name="username" placeholder="username" onChange={handleChange} required />
+                <input type="password" id="password" name="password" placeholder="password" onChange={handleChange} required />
+                <button id="loginButton">Sign in</button>
+                </form>
+                <p>Don't have an account? <Link to="/register" id="register-link">Sign up</Link></p>
+            </div>
         </div>
         </div>
     );
