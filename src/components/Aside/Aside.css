@@ -26,3 +26,11 @@
     margin: 0;
     padding: 0;
   }
+
+.aside {
+    max-width: 300px;
+    max-height: 720px;
+    float: left;
+    background-color: var(--azul);
+    text-align: center;
+  }

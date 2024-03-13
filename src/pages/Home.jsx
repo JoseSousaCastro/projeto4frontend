@@ -2,7 +2,9 @@ import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../index.css'
-import Login from "./Login";
+import Header from "../components/Header/Header";
+import Aside from "../components/Aside/Aside";
+import Main from "../components/Main/Main";
 
 function Home() {
     const [inputs, setInputs] = useState({});
@@ -24,11 +26,17 @@ function Home() {
     return (
         <div className="Home" id="home-outer-container">
             <div className="page-wrap" id="home-page-wrap">
-                <h1>Home</h1>
-                <br />
-                <Link to="/login">Sign in</Link>
-                <br />
-                <Link to="/register">Sign up</Link>
+                <div className="header-home-container">
+                <Header />
+                </div>
+                <div className="aside-main-home-container">
+                    <div className="aside-home-container">
+                    <Aside />
+                    </div>
+                    <div className="main-home-container">
+                    <Main />
+                    </div>
+                </div>
             </div>
         </div>
     );
