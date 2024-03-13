@@ -9,6 +9,7 @@ function Register() {
     const navigate = useNavigate();
     const updateName = userStore(state => state.updateName);
 
+
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -16,12 +17,42 @@ function Register() {
         setInputs(values => ({...values, [name]: value}));
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(inputs);
-        navigate('/home', {replace: true});
+
+        const user = {
+            username: inputs.username,
+            password: inputs.password,
+            email: inputs.email,
+            firstName: inputs.firstName,
+            lastName: inputs.lastName,
+            phone: inputs.phone,
+            photoURL: inputs.photoURL
+        };
+        
+        try {
+            const response = await fetch("http://localhost:8080/project_backend/rest/users/register", {
+                method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (response.ok) {
+        // Registro bem-sucedido
+        console.log("Registo feito com sucesso!");
+        navigate('/', { replace: true });
         updateName(inputs.username);
+      } else {
+        const responseBody = await response.text();
+        console.error("Erro no registo:", response.statusText, responseBody);
+        // Pode exibir uma mensagem de erro para o usuário
+      }
+    } catch (error) {
+      console.error("Erro na requisição:", error);
     }
+  };
 
     return (
         <div className="Register" id="register-outer-container">
