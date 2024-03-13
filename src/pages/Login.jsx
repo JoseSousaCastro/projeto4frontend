@@ -19,7 +19,7 @@ function Login() {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const user = {
+        const login = {
             username: inputs.username,
             password: inputs.password
         };
@@ -30,16 +30,18 @@ function Login() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(user),
+                body: JSON.stringify(login),
             });
 
             if (response.ok) {
-                const { token } = await response.json();
-
-                // Armazenar o token na sessionStorage
+                const  data  = await response.text();
+                const token = data;
                 sessionStorage.setItem("token", token);
+                console.log(data.text);
+
+                // Armazenar o token na sessionStorag
                 console.log("Login feito com sucesso!");
-                navigate('/', { replace: true });
+                navigate('/home', { replace: true });
                 updateName(inputs.username);
             } else {
                 const responseBody = await response.text();
