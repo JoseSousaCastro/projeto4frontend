@@ -5,6 +5,7 @@ import '../index.css'
 import Header from "../components/Header/Header";
 import Aside from "../components/Aside/Aside";
 import Main from "../components/Main/Main";
+import Footer from "../components/Footer/Footer";
 
 function Home() {
     const [inputs, setInputs] = useState({});
@@ -27,15 +28,18 @@ function Home() {
         <div className="Home" id="home-outer-container">
             <div className="page-wrap" id="home-page-wrap">
                 <div className="header-home-container">
-                <Header />
+                    <Header />
                 </div>
                 <div className="aside-main-home-container">
                     <div className="aside-home-container">
-                    <Aside />
+                        <Aside />
                     </div>
                     <div className="main-home-container">
-                    <Main />
+                        <Main />
                     </div>
+                </div>
+                <div className="footer-home-container">
+                    <Footer />
                 </div>
             </div>
         </div>

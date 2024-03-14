@@ -28,9 +28,10 @@
   }
 
 .aside {
-    max-width: 300px;
-    max-height: 720px;
+    width: 300px;
+    min-height: 720px;
+    max-height: 1000px;
     float: left;
-    background-color: var(--azul);
+    background-color: var(--light-grey);
     text-align: center;
   }

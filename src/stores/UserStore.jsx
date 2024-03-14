@@ -6,7 +6,13 @@ export const userStore = create(
     persist(
         (set) => ({
         username: "",
-        updateName: (username) => set({ username }),
+        token: "",
+        photoURL: "",
+        typeOfUser: "",
+        updateUsername: (username) => set({ username }),
+        updateToken: (token) => set({ token }),
+        updatePhotoURL: (photoURL) => set({ photoURL }),
+        updateTypeOfUser: (typeOfUser) => set({ typeOfUser }),
         }),
         {
             name: "mystore",

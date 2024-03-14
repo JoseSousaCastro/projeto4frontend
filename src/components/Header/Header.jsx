@@ -1,11 +1,13 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../Header/Header.css';
+import { userStore } from "../../stores/UserStore";
 
 
 
 function Header() {
     const navigate = useNavigate();
+    const { username, photoURL } = userStore.getState();
 
 
     const handleSubmit = (event) => {
@@ -28,8 +30,10 @@ function Header() {
                     </nav>
                 </div>
                 <div className="nav-menu-right">
-                    <img src="multimedia/prf-img-placeholder.PNG" id="profile-pic" alt="profile-pic" draggable="false" />
-                    <Link to="edit-profile.html" id="first-name-label" draggable="false"></Link>
+                    <Link to="/">
+                        <img src={photoURL} id="profile-pic" alt="profile-pic" draggable="false" />
+                        <span id="first-name-label" draggable="false">{username}</span>
+                    </Link>
                     <button className="logout-button" id="logout-button-header" onClick={handleSubmit}>
                         <img src="/multimedia/logout.png" alt="logout-icon" draggable="false" />
                         Logout

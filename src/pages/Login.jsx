@@ -7,7 +7,10 @@ import { userStore } from "../stores/UserStore.jsx";
 function Login() {
     const [inputs, setInputs] = useState({});
     const navigate = useNavigate();
-    const updateName = userStore(state => state.updateName);
+    const updateUsername = userStore(state => state.updateUsername);
+    const updatePhotoURL = userStore(state => state.updatePhotoURL);
+    const updateToken = userStore(state => state.updateToken);
+    const updateTypeOfUser = userStore(state => state.updateTypeOfUser);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -34,22 +37,24 @@ function Login() {
             });
 
             if (response.ok) {
-                const  data  = await response.text();
-                const token = data;
-                sessionStorage.setItem("token", token);
-                console.log(data.text);
+                const user = await response.text();
+                const { username, token, photoURL, typeOfUser } = user;
 
-                // Armazenar o token na sessionStorag
                 console.log("Login feito com sucesso!");
                 navigate('/home', { replace: true });
-                updateName(inputs.username);
+                updateUsername(user.username);
+                updateToken(user.token);
+                updatePhotoURL(user.photoURL);
+                updateTypeOfUser(user.typeOfUser);
+                
             } else {
                 const responseBody = await response.text();
                 console.error("Erro no login:", response.statusText, responseBody);
                 // Pode exibir uma mensagem de erro para o usuário
             }
         } catch (error) {
-            console.error("Erro na requisição:", error);
+            console.error("Erro no login:", error);
+            // Pode exibir uma mensagem de erro para o usuário
         }
     }
 
