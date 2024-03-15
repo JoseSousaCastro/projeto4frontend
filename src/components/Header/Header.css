@@ -88,11 +88,14 @@
     margin: 0 30px;
     object-fit: cover;
   }
-  
+  .link-edit-profile {
+    display: flex;
+    align-items: center;
+    }
   /* Username */
-  #username-header {
+  #first-name-label {
     color: var(--light-grey);
-    font-weight: bold;
+    font-weight: bolder;
   }
   /* Logout button */
   .logout-button {

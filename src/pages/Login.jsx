@@ -7,10 +7,7 @@ import { userStore } from "../stores/UserStore.jsx";
 function Login() {
     const [inputs, setInputs] = useState({});
     const navigate = useNavigate();
-    const updateUsername = userStore(state => state.updateUsername);
-    const updatePhotoURL = userStore(state => state.updatePhotoURL);
-    const updateToken = userStore(state => state.updateToken);
-    const updateTypeOfUser = userStore(state => state.updateTypeOfUser);
+    const updateUserStore = userStore(state => state);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -37,18 +34,23 @@ function Login() {
             });
 
             if (response.ok) {
-                const user = await response.text();
-                const { username, token, photoURL, typeOfUser } = user;
+                const user = await response.json();
+                updateUserStore.updateUsername(user.username);
+                updateUserStore.updateToken(user.token);
+                updateUserStore.updatePhotoURL(user.photoURL);
+                updateUserStore.updateTypeOfUser(user.typeOfUser);
+                console.log("User:", user);
+                console.log("Username:", user.username);
+                console.log("Token:", user.token);
+                console.log("PhotoURL:", user.photoURL);
+                console.log("TypeOfUser:", user.typeOfUser);
 
                 console.log("Login feito com sucesso!");
-                navigate('/home', { replace: true });
-                updateUsername(user.username);
-                updateToken(user.token);
-                updatePhotoURL(user.photoURL);
-                updateTypeOfUser(user.typeOfUser);
+               navigate('/home', { replace: true });
+
                 
             } else {
-                const responseBody = await response.text();
+                const responseBody = await response.json();
                 console.error("Erro no login:", response.statusText, responseBody);
                 // Pode exibir uma mensagem de erro para o usuário
             }

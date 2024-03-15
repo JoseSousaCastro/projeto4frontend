@@ -7,8 +7,9 @@ import { userStore } from "../../stores/UserStore";
 
 function Header() {
     const navigate = useNavigate();
-    const { username, photoURL } = userStore.getState();
 
+    const username = userStore(state => state.username);
+    const photoURL = userStore(state => state.photoURL);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -30,7 +31,7 @@ function Header() {
                     </nav>
                 </div>
                 <div className="nav-menu-right">
-                    <Link to="/">
+                    <Link className="link-edit-profile" to="/">
                         <img src={photoURL} id="profile-pic" alt="profile-pic" draggable="false" />
                         <span id="first-name-label" draggable="false">{username}</span>
                     </Link>
