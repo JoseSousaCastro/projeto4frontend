@@ -36,6 +36,10 @@ function Login() {
             if (response.ok) {
                 const user = await response.json();
                 updateUserStore.updateUsername(user.username);
+                updateUserStore.updateEmail(user.email);
+                updateUserStore.updateFirstName(user.firstName);
+                updateUserStore.updateLastName(user.lastName);
+                updateUserStore.updatePhone(user.phone);
                 updateUserStore.updateToken(user.token);
                 updateUserStore.updatePhotoURL(user.photoURL);
                 updateUserStore.updateTypeOfUser(user.typeOfUser);
@@ -44,9 +48,14 @@ function Login() {
                 console.log("Token:", user.token);
                 console.log("PhotoURL:", user.photoURL);
                 console.log("TypeOfUser:", user.typeOfUser);
+                console.log("Email:", user.email);
+                console.log("FirstName:", user.firstName);
+                console.log("LastName:", user.lastName);
+                console.log("Phone:", user.phone);
+                
 
                 console.log("Login feito com sucesso!");
-               navigate('/home', { replace: true });
+                navigate('/home', { replace: true });
 
                 
             } else {

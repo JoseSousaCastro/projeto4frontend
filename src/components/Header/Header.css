@@ -96,6 +96,11 @@
   #first-name-label {
     color: var(--light-grey);
     font-weight: bolder;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  #first-name-label:hover {
+    color: var(--doing);
   }
   /* Logout button */
   .logout-button {

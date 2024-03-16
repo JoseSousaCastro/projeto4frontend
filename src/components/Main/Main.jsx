@@ -1,7 +1,7 @@
 import React from "react";
 import "../Main/Main.css";
 import { Routes, Route } from "react-router-dom";
-import EditProfile from "../EditProfile/EditProfile";
+import EditProfile from "../Profile/Profile";
 
 function Main() {
     
