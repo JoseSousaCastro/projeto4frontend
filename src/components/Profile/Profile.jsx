@@ -8,9 +8,7 @@ function Profile() {
     const navigate = useNavigate();
 
     const username = userStore((state) => state.username);
-    console.log("Username:", username);
     const email = userStore((state) => state.email);
-    console.log("Email:", email);
     const firstName = userStore((state) => state.firstName);
     const lastName = userStore((state) => state.lastName);
     const phone = userStore((state) => state.phone);
@@ -64,6 +62,11 @@ function Profile() {
         }
     };
 
+    const handleCancel = (event) => {
+        event.preventDefault();
+        navigate("/home", { replace: true });
+    };
+
     return (
         <div>
             <div className="editProfilePanel">
@@ -85,7 +88,7 @@ function Profile() {
                     </div>
                     <div className="editProfile-Buttons">
                         <button type="submit" id="profile-save-button">Save</button>
-                        <button type="reset" id="profile-cancel-button">Cancel</button>
+                        <button type="reset" id="profile-cancel-button" onClick={handleCancel}>Cancel</button>
                     </div>
                 </form>
             </div>
