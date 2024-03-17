@@ -53,12 +53,6 @@ function Profile() {
                 updateLastName(user.lastName);
                 updatePhone(user.phone);
                 updatePhotoURL(user.photoURL);
-                console.log("User:", user);
-                console.log("Email:", user.email);
-                console.log("First Name:", user.firstName);
-                console.log("Last Name:", user.lastName);
-                console.log("Phone:", user.phone);
-                console.log("PhotoURL:", user.photoURL);
 
                 navigate("/home", { replace: true });
             } else {
@@ -77,75 +71,21 @@ function Profile() {
                 <form className="editProfile-register" id="edit-profile-form" onSubmit={handleSubmit}>
                     <div className="editProfile-fieldsContainer">
                         <div className="left-fields-editProfile">
-                            <label className="labels-edit-profile" id="email-editProfile-label">
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                className="editProfile-fields"
-                                id="email-editProfile"
-                                name="email"
-                                onChange={(e) => updateEmail(e.target.value)}
-                                required
-                                value={email}
-                            ></input>
-                            <label className="labels-edit-profile" id="firstName-editProfile-label">
-                                First Name
-                            </label>
-                            <input
-                                type="text"
-                                className="editProfile-fields"
-                                id="firstName-editProfile"
-                                name="firstName"
-                                onChange={(e) => updateFirstName(e.target.value)}
-                                required
-                                value={firstName}
-                            ></input>
-                            <label className="labels-edit-profile" id="lastName-editProfile-label">
-                                Last Name
-                            </label>
-                            <input
-                                type="text"
-                                className="editProfile-fields"
-                                id="lastName-editProfile"
-                                name="lastName"
-                                onChange={(e) => updateLastName(e.target.value)}
-                                required
-                                value={lastName}
-                            ></input>
-                            <label className="labels-edit-profile" id="phone-editProfile-label">
-                                Phone
-                            </label>
-                            <input
-                                type="text"
-                                className="editProfile-fields"
-                                id="phone-editProfile"
-                                name="phone"
-                                onChange={(e) => updatePhone(e.target.value)}
-                                required
-                                value={phone}
-                            ></input>
-                            <label className="labels-edit-profile" id="photoURL-editProfile-label">
-                                Photo URL
-                            </label>
-                            <input
-                                type="url"
-                                className="editProfile-fields"
-                                id="photoURL-editProfile"
-                                name="photoURL"
-                                onChange={(e) => updatePhotoURL(e.target.value)}
-                                required
-                                value={photoURL}
-                            ></input>
+                            <label className="labels-edit-profile" id="email-editProfile-label">Email</label>
+                            <input type="email" className="editProfile-fields" id="email-editProfile" onChange={(e) => updateEmail(e.target.value)} required value={email}></input>
+                            <label className="labels-edit-profile" id="firstName-editProfile-label">First Name</label>
+                            <input type="text" className="editProfile-fields" id="firstName-editProfile" name="firstName" onChange={(e) => updateFirstName(e.target.value)} required value={firstName}></input>
+                            <label className="labels-edit-profile" id="lastName-editProfile-label">Last Name</label>
+                            <input type="text" className="editProfile-fields" id="lastName-editProfile" name="lastName" onChange={(e) => updateLastName(e.target.value)} required value={lastName}></input>
+                            <label className="labels-edit-profile" id="phone-editProfile-label">Phone</label>
+                            <input type="text" className="editProfile-fields" id="phone-editProfile" name="phone" onChange={(e) => updatePhone(e.target.value)} required value={phone}></input>
+                            <label className="labels-edit-profile" id="photoURL-editProfile-label">Photo URL</label>
+                            <input type="url" className="editProfile-fields" id="photoURL-editProfile" name="photoURL" onChange={(e) => updatePhotoURL(e.target.value)} required value={photoURL}></input>
                         </div>
                     </div>
                     <div className="editProfile-Buttons">
-                        <button type="submit" id="profile-save-button">
-                            Save
-                        </button>
-                        <button type="reset" id="profile-cancel-button">
-                            Cancel
-                        </button>
+                        <button type="submit" id="profile-save-button">Save</button>
+                        <button type="reset" id="profile-cancel-button">Cancel</button>
                     </div>
                 </form>
             </div>
