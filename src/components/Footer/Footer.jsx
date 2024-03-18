@@ -6,7 +6,7 @@ function Footer() {
     return (
         <div className="footer" id="footer-outer-container">
             <div className="page-wrap" id="footer-page-wrap">
-                <p>&copy; José Sousa Castro &nbsp; | &nbsp; Programação Avançada em Java &nbsp; | &nbsp; Projeto 3</p>
+                <p>&copy; José Sousa Castro &nbsp; | &nbsp; Programação Avançada em Java &nbsp; | &nbsp; Projeto 4</p>
             </div>
         </div>
     );

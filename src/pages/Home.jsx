@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../index.css'
 import Header from "../components/Header/Header";
-import Aside from "../components/Aside/Aside";
+import TasksList from "../components/TasksList/TasksList";
 import Main from "../components/Main/Main";
 import Footer from "../components/Footer/Footer";
 
@@ -32,7 +32,7 @@ function Home() {
                 </div>
                 <div className="aside-main-home-container">
                     <div className="aside-home-container">
-                        <Aside />
+                        <TasksList />
                     </div>
                     <div className="main-home-container">
                         <Main />
