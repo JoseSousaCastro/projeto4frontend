@@ -8,8 +8,8 @@ function Password() {
     const username = userStore((state) => state.username);
     const token = userStore((state) => state.token);
     const password = userStore((state) => state.password);
-    const updatePassword = userStore((state) => state.updatePassword);
 
+    const updatePassword = inputs.currentPassword;
     const updateNewPassword = inputs.newPassword;
     const updateNewPasswordConfirm = inputs.newPasswordConfirm;
 
@@ -30,7 +30,7 @@ function Password() {
                     headers: {
                         "Content-Type": "application/json",
                         token: token,
-                        oldPassword: password,
+                        oldPassword: updatePassword,
                         newPassword: updateNewPassword,
                     },
                     body: JSON.stringify(password),
@@ -59,6 +59,8 @@ function Password() {
                 <form className="password-register" id="password-form" onSubmit={handleSubmit}>
                     <div className="password-fieldsContainer">
                             <label className="labels-password" id="change-password-label">Change Password</label>
+                            <label className="labels-password" id="currentPass-password-label">Current password</label>
+                            <input type="password" className="password-fields" id="currentPassword-password" name="currentPassword" onChange={(e) => updatePassword(e.target.value)}/>
                             <label className="labels-password" id="newPass-password-label">New password</label>
                             <input type="password" className="password-fields" id="newPassword-password" name="newPassword" onChange={(e) => updateNewPassword(e.target.value)}/>
                             <label className="labels-password" id="newPassConfirm-password-label">Confirm new password</label>
