@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import '../index.css'
 import Header from "../components/Header/Header";
-import TasksList from "../components/TasksList/TasksList";
+import TasksList from "../components/TasksMain/TasksMain";
 import Footer from "../components/Footer/Footer";
 import Profile from "../components/Profile/Profile";
 import Password from "../components/Password/Password";
@@ -39,9 +39,7 @@ function Home() {
                         <Profile />
                     </div>
                 </div>
-                <div className="footer-home-container">
-                    <Footer />
-                </div>
+                <Footer />
             </div>
         </div>
     );

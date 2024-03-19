@@ -29,6 +29,8 @@ export const userStore = create(
         updatePassword: (password) => set({ password }),
         updateUserTasks: (userTasks) => set({ userTasks }),
         updateVisible: (visible) => set({ visible }),
+
+        deleteAllUserTasks: () => set({ userTasks: [] }),
         }),
         {
             name: "mystore",
