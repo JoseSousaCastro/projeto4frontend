@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { taskStore } from "../../stores/TaskStore";
 import { userStore } from "../../stores/UserStore";
@@ -9,6 +9,7 @@ import "./AddTask.css";
 function AddTask() {
     const navigate = useNavigate();
     const [priority, setPriority] = useState("");
+    const [categories, setCategories] = useState([]);
     const [taskDetails, setTaskDetails] = useState({
         title: "",
         description: "",
@@ -17,6 +18,33 @@ function AddTask() {
         endDate: "",
         category: "",
     });
+
+    useEffect(() => {
+        // Aqui você deve buscar as categorias da CategoryStore
+        const fetchCategories = async () => {
+            try {
+                const response = await fetch(`http://localhost:8080/project_backend/rest/users/categories`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        token: userStore((state) => state.token),
+                    },
+                });
+                if (response.ok) {
+                    const categoriesData = await response.json();
+                    setCategories(categoriesData);
+                } else {
+                    console.error("Failed to fetch categories");
+                }
+            } catch (error) {
+                console.error("Error fetching categories:", error);
+            }
+        };
+
+        fetchCategories();
+    }, []); // Este efeito só deve executar uma vez, então deixamos o array de dependências vazio
+
+
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -181,7 +209,9 @@ function AddTask() {
                                 <option value="" disabled>
                                     Category
                                 </option>
-                                {/* Opções para as categorias */}
+                                {categories.map((category, index) => (
+                                    <option key={index} value={category.name}>{category.name}</option>
+                                ))}
                             </select>
                         </div>
                     </div>
