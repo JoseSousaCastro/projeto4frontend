@@ -3,7 +3,7 @@ Filter tasks by user - aside dropdown
 Filter tasks by category - aside dropdown */
 
 import React, { useState } from "react";
-import { Link, navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./TasksAside.css";
 import { userStore } from "../../stores/UserStore";
 import { categoryStore } from "../../stores/CategoryStore";
@@ -11,13 +11,14 @@ import { categoryStore } from "../../stores/CategoryStore";
 function TasksAside() {
     const { users } = userStore(); // Obtém a lista de usuários
     const { categories } = categoryStore(); // Obtém a lista de categorias
+    const navigate = useNavigate();
 
-    // Estado para o usuário selecionado no filtro
     const [selectedUser, setSelectedUser] = useState("");
-    // Estado para a categoria selecionada no filtro
     const [selectedCategory, setSelectedCategory] = useState("");
 
     const deleteAllUserTasks = userStore((state) => state.deleteAllUserTasks);
+    const filterTasksByUser = userStore((state) => state.filterTasksByUser);
+    const filterTasksByCategory = userStore((state) => state.filterTasksByCategory);
 
 
 

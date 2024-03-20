@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import '../index.css'
 import Header from "../components/Header/Header";
-import TasksList from "../components/TasksList/TasksList";
-import Main from "../components/Main/Main";
+import TasksAside from "../components/TasksAside/TasksAside";
+import TasksMain from "../components/TasksMain/TasksMain";
 import Footer from "../components/Footer/Footer";
 
 function Home() {
@@ -17,7 +17,7 @@ function Home() {
     
         setInputs(values => ({...values, [name]: value}));
     }
-    
+
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(inputs);
@@ -32,10 +32,10 @@ function Home() {
                 </div>
                 <div className="aside-main-home-container">
                     <div className="aside-home-container">
-                        <TasksList />
+                        <TasksAside />
                     </div>
                     <div className="main-home-container">
-                        <Main />
+                        <TasksMain />
                     </div>
                 </div>
                 <div className="footer-home-container">

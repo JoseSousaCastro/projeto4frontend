@@ -104,7 +104,7 @@ function CategoriesAside() {
     };
 
     return (
-        <div>
+        <div className="categories-aside">
             <div className="aside">
                 <div className="add-category">
                     <label className="add-category-label" htmlFor="add-category-button">Add Category</label>
