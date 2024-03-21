@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../index.css'
 import Header from "../components/Header/Header";
-import TasksAside from "../components/TasksAside/TasksAside";
 import AddTask from "../components/AddTask/AddTask";
 import Footer from "../components/Footer/Footer";
+import AsideLogo from "../components/AsideLogo/AsideLogo";
 
 function TasksAddTask() {
     const [inputs, setInputs] = useState({});
@@ -32,7 +32,7 @@ function TasksAddTask() {
                 </div>
                 <div className="aside-main-home-container">
                     <div className="aside-home-container">
-                        <TasksAside />
+                        <AsideLogo />
                     </div>
                     <div className="main-home-container">
                         <AddTask />

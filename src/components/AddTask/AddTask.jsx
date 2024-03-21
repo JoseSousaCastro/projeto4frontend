@@ -104,9 +104,11 @@ function AddTask() {
 
     return (
         <div className="add-task">
-            <div className="detalhes-task">
-                <div>
+            <div className="addTask-title">
+                <div className="labels-addTask-top">
                     <label htmlFor="titulo-task">Title</label>
+                </div>
+                <div className="input-addTask-title">
                     <input
                         type="text"
                         id="titulo-task"
@@ -115,8 +117,12 @@ function AddTask() {
                         onChange={handleInputChange}
                     />
                 </div>
-                <div>
+            </div>
+            <div className="addTask-description">
+                <div className="labels-addTask-top">
                     <label htmlFor="descricao-task">Description</label>
+                </div>
+                <div className="input-addTask-description">
                     <textarea
                         className="text-task"
                         id="descricao-task"
@@ -125,27 +131,13 @@ function AddTask() {
                         onChange={handleInputChange}
                     ></textarea>
                 </div>
-                <div className="task-save">
-                    <button
-                        className="save-button"
-                        id="save-button"
-                        onClick={handleSaveTask}
-                    >
-                        Save
-                    </button>
-                    <button
-                        className="cancel-button"
-                        id="cancel-button"
-                        onClick={() => navigate("/home")}
-                    >
-                        Cancel
-                    </button>
-                </div>
             </div>
             <div className="task-buttons">
                 <div className="status-and-priority">
                     <div className="task-priority">
-                        <h4 className="taskH4">Priority</h4>
+                        <div className="field-titles">
+                            <h4 className="taskH4" id="priority-h4">Priority</h4>
+                        </div>
                         <div className="priority-buttons">
                             <button
                                 className={`priority-button low ${priority === "Low" ? "selected" : ""}`}
@@ -156,12 +148,12 @@ function AddTask() {
                             </button>
                             <button
                                 className={`priority-button medium ${priority === "Medium" ? "selected" : ""}`}
-                                id="medium-button"
+                                 id="medium-button"
                                 onClick={() => handlePriorityClick("Medium")}
                             >
                                 Medium
-                            </button>
-                            <button
+                             </button>
+                             <button
                                 className={`priority-button high ${priority === "High" ? "selected" : ""}`}
                                 id="high-button"
                                 onClick={() => handlePriorityClick("High")}
@@ -171,34 +163,44 @@ function AddTask() {
                         </div>
                     </div>
                     <div className="dates">
-                        <h4 className="taskH4">Dates</h4>
-                        <div className="startDateDiv">
-                            <label
-                                htmlFor="startDate-editTask"
-                                className="label-start-date"
-                            >
-                                Start date:
-                            </label>
-                            <input
-                                type="date"
-                                id="startDate-editTask"
-                                name="startDate"
-                                value={taskDetails.startDate}
-                                onChange={handleDateChange}
-                            />
-                            <label htmlFor="endDate-editTask">End date:</label>
-                            <input
-                                type="date"
-                                id="endDate-editTask"
-                                name="endDate"
-                                value={taskDetails.endDate}
-                                onChange={handleDateChange}
-                            />
+                        <div className="field-titles">
+                            <h4 className="taskH4" id="dates-h4">Dates</h4>
+                        </div>
+                        <div className="label-dates">
+                                <label
+                                    htmlFor="startDate-editTask"
+                                    className="label-start-date"
+                                >
+                                    Start date:
+                                </label>
+                        </div>
+                        <div className="input-dates">
+                                <input
+                                    type="date"
+                                    id="startDate-editTask"
+                                    name="startDate"
+                                    value={taskDetails.startDate}
+                                    onChange={handleDateChange}
+                                />
+                        </div>
+                        <div className="label-dates">
+                                <label htmlFor="endDate-editTask">End date:</label>
+                        </div>
+                        <div className="input-dates">
+                                <input
+                                    type="date"
+                                    id="endDate-editTask"
+                                    name="endDate"
+                                    value={taskDetails.endDate}
+                                    onChange={handleDateChange}
+                                />
                         </div>
                     </div>
                     <div className="category">
-                        <h4 className="taskH4">Category</h4>
-                        <div id="div-dropdown">
+                        <div className="field-titles">
+                            <h4 className="taskH4">Category</h4>
+                        </div>
+                        <div className="div-dropdown">
                             <select
                                 id="task-category-edit"
                                 name="category"
@@ -214,6 +216,22 @@ function AddTask() {
                                 ))}
                             </select>
                         </div>
+                    </div>
+                    <div className="task-save">
+                        <button
+                            className="save-button"
+                            id="save-button"
+                            onClick={handleSaveTask}
+                        >
+                            Add Task
+                        </button>
+                        <button
+                            className="cancel-button"
+                            id="cancel-button"
+                            onClick={() => navigate("/home")}
+                        >
+                            Cancel
+                        </button>
                     </div>
                 </div>
             </div>

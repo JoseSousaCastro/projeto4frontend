@@ -101,10 +101,15 @@ function TasksAside() {
     return (
         <div>
             <div className="aside">
+                <div className="buttons-top">
                 {/* Botão para adicionar tarefa que leva à página Add Task */}
                 <Link to="/add-task">
                     <button className="aside-button">Add Task</button>
                 </Link>
+                <Link to="/categories">
+                    <button className="aside-button" id="categories-button">Categories</button>
+                </Link>
+                </div>
                 {/* Dropdown menu para filtrar tarefas por usuário */}
                 <label className="dropdown-label">Filter by user</label>
                 <div className="dropdown">
