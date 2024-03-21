@@ -109,6 +109,9 @@ function TasksAside() {
                 <Link to="/categories">
                     <button className="aside-button" id="categories-button">Categories</button>
                 </Link>
+                <Link to="/deleted-tasks">
+                    <button className="aside-button" id="deleted-tasks-button">Deleted Tasks</button>
+                </Link>
                 </div>
                 {/* Dropdown menu para filtrar tarefas por usuário */}
                 <label className="dropdown-label">Filter by user</label>

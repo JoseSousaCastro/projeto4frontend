@@ -60,11 +60,13 @@
     background-color: var(--white);
     color: var(--green2);
 }
-#categories-button {
+#categories-button,
+#deleted-tasks-button {
     color: var(--green3);
     background-color: var(--green1);
 }
-#categories-button:hover {
+#categories-button:hover,
+#deleted-tasks-button:hover {
     background-color: var(--white);
     color: var(--green3);
 }
