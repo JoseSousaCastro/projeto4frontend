@@ -106,34 +106,36 @@ function TasksAside() {
                     <button className="aside-button">Add Task</button>
                 </Link>
                 {/* Dropdown menu para filtrar tarefas por usuário */}
+                <label className="dropdown-label">Filter by user</label>
                 <div className="dropdown">
                     <select className="dropdown-select" onChange={(e) => setSelectedUser(e.target.value)}>
                         <option value="">Choose user</option>
-                        {users.map(user => (
+                        {users && users.map(user => (
                             <option key={user.id} value={user.id}>{user.username}</option>
                         ))}
                     </select>
                     {/* Botão para filtrar tarefas pelo usuário selecionado */}
-                    {selectedUser && (
+                    <div>
                         <button className="filter-button" onClick={handleFilterByUser}>Filter</button>
-                    )}
+                    </div>
                     {/* Botão para deletar todas as tarefas do usuário selecionado */}
-                    {selectedUser && (
+                    <div>
                         <button className="delete-all-user-tasks" onClick={handleDeleteAllUserTasks}>Delete All Tasks</button>
-                    )}
+                    </div>
                 </div>
                 {/* Dropdown menu para filtrar tarefas por categoria */}
+                <label className="dropdown-label">Filter by category</label>
                 <div className="dropdown">
                     <select className="dropdown-select" onChange={(e) => setSelectedCategory(e.target.value)}>
                         <option value="">Choose category</option>
-                        {categories.map(category => (
+                        {categories && categories.map(category => (
                             <option key={category.name} value={category.name}>{category.name}</option>
                         ))}
                     </select>
                     {/* Botão para filtrar tarefas pela categoria selecionada */}
-                    {selectedCategory && (
+                    <div>
                         <button className="filter-button" onClick={handleFilterByCategory}>Filter</button>
-                    )}
+                    </div>
                 </div>
             </div>
         </div>
