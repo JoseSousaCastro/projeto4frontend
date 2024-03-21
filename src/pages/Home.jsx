@@ -35,7 +35,7 @@ function Home() {
                         <TasksAside />
                     </div>
                     <div className="main-home-container">
-                        {/* <TasksMain /> */}
+                        <TasksMain />
                     </div>
                 </div>
                 <div className="footer-home-container">

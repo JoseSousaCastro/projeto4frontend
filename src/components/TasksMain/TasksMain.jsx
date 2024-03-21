@@ -36,25 +36,31 @@ function TasksMain() {
 
     return (
         <div className="tasks-users-list" id="tasks-users-list-outer-container">
-            <div className="page-wrap" id="tasks-users-list-page-wrap">
-                <div className="titulo-main">
-                    <h2 className="main-home">To do</h2>
+            <div className="page-wrap-task-list" id="tasks-users-list-page-wrap">
+                <div className="task-section">
+                    <div className="titulo-main">
+                        <h2 className="main-home">To do</h2>
+                    </div>
                     <div className="panel" id="todo">
                         {tasks.filter(task => task.stateId === "TODO").map(task => (
                             <div key={task.id}>{task.title}</div>
                         ))}
                     </div>
                 </div>
-                <div className="titulo-main">
-                    <h2 className="main-home">Doing</h2>
+                <div className="task-section">
+                    <div className="titulo-main">
+                        <h2 className="main-home">Doing</h2>
+                    </div>
                     <div className="panel" id="doing">
                         {tasks.filter(task => task.stateId === "DOING").map(task => (
-                            <div key={task.id}>{task.title}</div>
+                           <div key={task.id}>{task.title}</div>
                         ))}
                     </div>
                 </div>
-                <div className="titulo-main">
-                    <h2 className="main-home">Done</h2>
+                <div className="task-section">
+                    <div className="titulo-main">
+                        <h2 className="main-home">Done</h2>
+                    </div>
                     <div className="panel" id="done">
                         {tasks.filter(task => task.stateId === "DONE").map(task => (
                             <div key={task.id}>{task.title}</div>

@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import EditProfile from './pages/EditProfile';
 import TasksAside from './components/TasksAside/TasksAside';
 import TasksMain from './components/TasksMain/TasksMain';
+import TasksAddTask from './pages/TasksAddTask';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Route path="/edit-profile" element={<EditProfile />} />
       <Route path="/tasks-aside" element={<TasksAside />} />
       <Route path="/tasks-main" element={<TasksMain />} />
+      <Route path="/add-task" element={<TasksAddTask />} />
     </Routes>
   );
 }

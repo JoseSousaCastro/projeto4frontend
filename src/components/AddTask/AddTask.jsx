@@ -145,7 +145,7 @@ function AddTask() {
             <div className="task-buttons">
                 <div className="status-and-priority">
                     <div className="task-priority">
-                        <h4 className="taskH4">priority</h4>
+                        <h4 className="taskH4">Priority</h4>
                         <div className="priority-buttons">
                             <button
                                 className={`priority-button low ${priority === "Low" ? "selected" : ""}`}
