@@ -1,8 +1,9 @@
 import React from 'react';
 import "../TaskCard/TaskCard.css";
+import { Link } from 'react-router-dom';
 
 export default function TaskCard({ task }) {
-    const { title, description, priority } = task;
+    const { id, title, description, priority } = task;
 
     // Traduzindo a prioridade de int para string
     const translatePriority = (priorityInt) => {
@@ -37,7 +38,9 @@ export default function TaskCard({ task }) {
 
     return (
         <div className={`task ${priorityBorderClass}`}>
-            <div className="task-title-solo">{title}</div>
+            <Link to={`/edit-task/${id}`} className="task-title-solo">
+                {title}
+            </Link>
             <div className="task-description-solo">{description}</div>
         </div>
     );

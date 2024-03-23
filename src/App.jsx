@@ -13,6 +13,8 @@ import DeletedTasks from './components/DeletedTasks/DeletedTasks';
 import TasksDeleted from './pages/TasksDeleted';
 import CategoriesAside from './components/CategoriesAside/CategoriesAside';
 import TasksCategories from './pages/TasksCategories';
+import TasksEditTask from './pages/TasksEditTask';
+
 
 function App() {
   return (
@@ -30,7 +32,7 @@ function App() {
       <Route path="/tasks-deleted" element={<TasksDeleted />} />
       <Route path="/categories-aside" element={<CategoriesAside />} />
       <Route path="/tasks-categories" element={<TasksCategories />} />
-
+      <Route path="/edit-task/:taskId" element={<TasksEditTask />} />
     </Routes>
   );
 }

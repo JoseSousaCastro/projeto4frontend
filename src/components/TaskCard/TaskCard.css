@@ -28,7 +28,7 @@
   }
 
   .task {
-    background-color: var(--white);
+    background-color: white;
     border-radius: 8px;
     height: 80px;
     padding: 5px;
@@ -49,6 +49,11 @@
     padding-inline: 8px;
     padding-block: 3px;
     margin-bottom: 5px;
+    text-decoration: none;
+}
+.task-title-solo:hover {
+    text-decoration: underline;
+    color: var(--green2);
 }
 
 .task-description-solo {
