@@ -1,8 +1,9 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { userStore } from "../stores/UserStore.jsx";
 import { categoryStore } from "../stores/CategoryStore.jsx";
+import { taskStore } from "../stores/TaskStore.jsx";
 import "../pages/Login.css";
 
 function Login() {
@@ -10,12 +11,31 @@ function Login() {
     const navigate = useNavigate();
     const updateUserStore = userStore(state => state);
     const updateCategoryStore = categoryStore(state => state);
+    const updateTaskStore = taskStore(state => state);
 
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
         setInputs(values => ({...values, [name]: value}));
     }
+
+    const [tasksFetched, setTasksFetched] = useState(false);
+
+    useEffect(() => {
+        const fetchTasksIfNeeded = async () => {
+            if (!tasksFetched) {
+                try {
+                    await updateTaskStore.fetchTasks();
+                    setTasksFetched(true);
+                } catch (error) {
+                    console.error("Error fetching tasks:", error);
+                }
+            }
+        };
+
+        fetchTasksIfNeeded();
+    }, [tasksFetched, updateTaskStore]);
+
     
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -38,6 +58,15 @@ function Login() {
                 const user = await response.json();
                 updateUserStore.updateUsername(user.username);
                 updateUserStore.updateToken(user.token);
+                updateUserStore.updatePhotoURL(user.photoURL);
+                updateUserStore.updateEmail(user.email);
+                updateUserStore.updateFirstName(user.firstName);
+                updateUserStore.updateLastName(user.lastName);
+                updateUserStore.updatePhone(user.phone);
+                updateUserStore.updatePassword(user.password);
+                updateUserStore.updateTypeOfUser(user.typeOfUser);
+                updateUserStore.updateUserTasks(user.userTasks);
+
                 // Atualize outros dados do usuário conforme necessário
 
                 // Fetch das categorias e armazenamento na store de categorias
@@ -60,6 +89,14 @@ function Login() {
                 } catch (error) {
                     console.error("Error fetching categories:", error);
                 }
+
+                // Fetch de todas as tarefas e armazenamento na store de tarefas
+                try {
+                    await updateTaskStore.fetchTasks(); // Chama a função fetchTasks da store de tarefas
+                } catch (error) {
+                    console.error("Error fetching tasks:", error);
+                }
+                console.log("Tasks:", updateTaskStore.tasks);
 
                 console.log("Login feito com sucesso!");
                 navigate('/home', { replace: true });

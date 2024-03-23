@@ -1,46 +1,29 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "../TasksMain/TasksMain.css";
 import { taskStore } from "../../stores/TaskStore";
-import { userStore } from "../../stores/UserStore";
 import TaskCard from "../TaskCard/TaskCard";
 
 function TasksMain() {
+    // Utilize o hook useState para inicializar as tarefas
     const [tasks, setTasks] = useState([]);
     const [tasksDoing, setTasksDoing] = useState([]);
     const [tasksDone, setTasksDone] = useState([]);
 
-    const token = userStore((state) => state.token);
-
+    // UseEffect para atualizar as tarefas com as armazenadas na taskStore
     useEffect(() => {
-        const fetchTasks = async () => {
-            try {
-                
-                const response = await fetch("http://localhost:8080/project_backend/rest/users/tasks/", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        token: token,
-                    }
-                });
+        // Use uma função para acessar o estado atual da taskStore
+        const tasksFromStore = taskStore.getState().tasks;
+        
+        // Filtre as tarefas de acordo com o stateId
+        const todoTasks = tasksFromStore.filter(task => task.stateId === 100);
+        const doingTasks = tasksFromStore.filter(task => task.stateId === 200);
+        const doneTasks = tasksFromStore.filter(task => task.stateId === 300);
 
-                if (response.ok) {
-                    const data = await response.json();
-                    setTasks(data.filter(task => task.stateId === "TODO"));
-                    setTasksDoing(data.filter(task => task.stateId === "DOING"));
-                    setTasksDone(data.filter(task => task.stateId === "DONE"));
-                    // Adiciona as tarefas à store
-                    data.forEach(task => taskStore.getState().addTask(task));
-                } else {
-                    console.error("Failed to fetch tasks:", response.statusText);
-                }
-            } catch (error) {
-                console.error("Error fetching tasks:", error);
-            }
-        };
-
-        fetchTasks();
-    }, [token]);
+        // Atualize o estado das tarefas com os valores filtrados
+        setTasks(todoTasks);
+        setTasksDoing(doingTasks);
+        setTasksDone(doneTasks);
+    }, []); // Certifique-se de passar um array vazio como segundo argumento para executar o useEffect apenas uma vez
 
     return (
         <div className="tasks-users-list" id="tasks-users-list-outer-container">
@@ -50,8 +33,8 @@ function TasksMain() {
                         <h2 className="main-home">To do</h2>
                     </div>
                     <div className="panel" id="todo">
-                        {tasks.filter(task => task.stateId === "TODO").map(task => (
-                            <div className="task-card-taskMain">
+                        {tasks.map(task => (
+                            <div className="task-card-taskMain" key={task.id}>
                                 <TaskCard task={task} />
                             </div>
                         ))}
@@ -62,10 +45,10 @@ function TasksMain() {
                         <h2 className="main-home">Doing</h2>
                     </div>
                     <div className="panel" id="doing">
-                        {tasks.filter(task => task.stateId === "DOING").map(task => (
-                        <div className="task-card-taskMain">
-                            <TaskCard task={task} />
-                        </div>
+                        {tasksDoing.map(task => (
+                            <div className="task-card-taskMain" key={task.id}>
+                                <TaskCard task={task} />
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -74,10 +57,10 @@ function TasksMain() {
                         <h2 className="main-home">Done</h2>
                     </div>
                     <div className="panel" id="done">
-                        {tasks.filter(task => task.stateId === "DONE").map(task => (
-                        <div className="task-card-taskMain">
-                            <TaskCard task={task} />
-                        </div>
+                        {tasksDone.map(task => (
+                            <div className="task-card-taskMain" key={task.id}>
+                                <TaskCard task={task} />
+                            </div>
                         ))}
                     </div>
                 </div>

@@ -9,8 +9,7 @@ function Header() {
     const navigate = useNavigate();
     const updateUserStore = userStore(state => state);
 
-
-    const username = userStore(state => state.username);
+    const firstName = userStore(state => state.firstName);
     const photoURL = userStore(state => state.photoURL);
 
     const handleSubmit = (event) => {
@@ -18,6 +17,10 @@ function Header() {
         // Limpar dados sensíveis durante o logout
         updateUserStore.updateToken(""); // Limpar o token
         updateUserStore.updatePassword(""); // Limpar a senha, se estiver armazenada
+        // Limpar dados armazenados na sessionStorage
+        sessionStorage.removeItem("categoryStore");
+        sessionStorage.removeItem("taskStore");
+        sessionStorage.removeItem("userStore");
         navigate('/', { replace: true });
     }
 
@@ -43,7 +46,7 @@ function Header() {
                 <div className="nav-menu-right">
                     <div className="link-edit-profile">
                         <img src={photoURL} id="profile-pic" alt="profile-pic" />
-                        <p id="first-name-label" onClick={handleClick}>{username}</p>
+                        <p id="first-name-label" onClick={handleClick}>{firstName}</p>
                     </div>
                     <button className="logout-button" id="logout-button-header" onClick={handleSubmit}>
                         <img src="/multimedia/logout.png" alt="logout-icon" />

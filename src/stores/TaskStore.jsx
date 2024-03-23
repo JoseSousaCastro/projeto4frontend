@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { userStore } from "./UserStore";
 
 // Define a store
 export const taskStore = create(
@@ -25,23 +26,30 @@ export const taskStore = create(
 
             
             tasks: [],
-            
-            addTask: (task) =>
-                set((state) => ({
-                    tasks: [...state.tasks, task],
-                })),
-
-            editTask: (oldTask, updatedTask) =>
-                set((state) => ({
-                    tasks: state.tasks.map((task) =>
-                        task.id === oldTask.id ? { ...task, ...updatedTask } : task
-                    ),
-                })),
-
-            deleteTask: (deleteTask) =>
-                set((state) => ({
-                    tasks: state.tasks.filter((task) => task.id !== deleteTask.id),
-                })),
+            setTasks: (tasks) => {
+                console.log("Tarefas armazenadas:", tasks);
+                set({ tasks });
+            },
+            fetchTasks: async () => {
+                try {
+                    const response = await fetch("http://localhost:8080/project_backend/rest/users/tasks", {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            token: userStore.getState().token,
+                        },
+                    });
+                    if (response.ok) {
+                        const tasks = await response.json();
+                        console.log("Tarefas recebidas:", tasks);
+                        set({ tasks });
+                    } else {
+                        console.error("Failed to fetch tasks:", response.statusText);
+                    }
+                } catch (error) {
+                    console.error("Error fetching tasks:", error);
+                }
+            }
         }),
         {
             name: "taskStore",

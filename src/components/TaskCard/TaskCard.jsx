@@ -1,28 +1,39 @@
 import React from 'react';
 import "../TaskCard/TaskCard.css";
-import { taskStore } from '../../stores/TaskStore';
 
+export default function TaskCard({ task }) {
+    const { title, description, priority } = task;
 
-export default function TaskCard() {
-    const title = taskStore.title;
-    const description = taskStore.description;
-    const priority = taskStore.priority;
+    // Traduzindo a prioridade de int para string
+    const translatePriority = (priorityInt) => {
+        switch (priorityInt) {
+            case 100:
+                return "Low";
+            case 200:
+                return "Medium";
+            case 300:
+                return "High";
+            default:
+                return "";
+        }
+    }
+
+    const priorityString = translatePriority(priority);
 
     const getPriorityBorderClass = () => {
-        switch (priority) {
+        switch (priorityString) {
             case "High":
-                return "task-priority-high";
+                return "border-red";
             case "Medium":
-                return "task-priority-medium";
+                return "border-yellow";
             case "Low":
-                return "task-priority-low";
+                return "border-green";
             default:
                 return "";
         }
     }
 
     const priorityBorderClass = getPriorityBorderClass();
-
 
     return (
         <div className={`task ${priorityBorderClass}`}>

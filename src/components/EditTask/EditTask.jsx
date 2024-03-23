@@ -6,244 +6,132 @@ import { categoryStore } from "../../stores/CategoryStore";
 import { useNavigate } from "react-router-dom";
 import "../EditTask/EditTask.css";
 
-function AddTask() {
+function EditTask() {
     const navigate = useNavigate();
-    const [priority, setPriority] = useState("");
-    const [categories, setCategories] = useState([]);
-    const [taskDetails, setTaskDetails] = useState({
-        title: "",
-        description: "",
-        priority: "",
-        startDate: "",
-        endDate: "",
-        category: "",
-    });
-
+    const { categories } = categoryStore(); // Obtém a lista de categorias
+    const { task } = taskStore(); // Obtém a tarefa a ser editada
     const token = userStore((state) => state.token);
 
-    useEffect(() => {
-        // Aqui você deve buscar as categorias da CategoryStore
-        const fetchCategories = async () => {
-            try {
-                const response = await fetch(`http://localhost:8080/project_backend/rest/users/categories`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        token: token,
-                    },
-                });
-                if (response.ok) {
-                    const categoriesData = await response.json();
-                    setCategories(categoriesData);
-                } else {
-                    console.error("Failed to fetch categories");
-                }
-            } catch (error) {
-                console.error("Error fetching categories:", error);
-            }
-        };
-
-        fetchCategories();
-    }, []); // Este efeito só deve executar uma vez, então deixamos o array de dependências vazio
-
-
+    const [taskDetails, setTaskDetails] = useState({
+        title: task.title,
+        description: task.description,
+        startDate: task.startDate,
+        limitDate: task.limitDate,
+        category: task.category.name,
+    });
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setTaskDetails({ ...taskDetails, [name]: value });
     };
 
-    const handlePriorityClick = (priority) => {
-        setPriority(priority);
-    };
-
     const handleDateChange = (event) => {
         const { name, value } = event.target;
         setTaskDetails({ ...taskDetails, [name]: value });
-        
+
         // Verifica se a data final é posterior à data inicial
-        if (name === "startDate" && taskDetails.endDate && value > taskDetails.endDate) {
-            setTaskDetails({ ...taskDetails, endDate: value });
-        } else if (name === "endDate" && taskDetails.startDate && value < taskDetails.startDate) {
+        if (name === "startDate" && taskDetails.limitDate && value > taskDetails.limitDate) {
+            setTaskDetails({ ...taskDetails, limitDate: value });
+        } else if (name === "limitDate" && taskDetails.startDate && value < taskDetails.startDate) {
             setTaskDetails({ ...taskDetails, startDate: value });
         }
     };
 
-    const handleSaveTask = async (event) => {
-        event.preventDefault();
-        const username = userStore((state) => state.username);
-        const newTask = {
+    const handleSaveTask = async () => {
+        const category = {
+            name: taskDetails.category,
+        }
+        const updatedTask = {
+            id: task.id,
             title: taskDetails.title,
             description: taskDetails.description,
-            priority: taskDetails.priority,
             startDate: taskDetails.startDate,
-            endDate: taskDetails.endDate,
-            category: taskDetails.category,
+            limitDate: taskDetails.limitDate,
+            category: category,
         };
 
         try {
-            const response = await fetch(`http://localhost:8080/project_backend/rest/users/${username}/addTask`, {
-                method: "POST",
+            const response = await fetch(`http://localhost:8080/project_backend/rest/tasks/${task.id}`, {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     token: token,
                 },
-                body: JSON.stringify(newTask),
+                body: JSON.stringify(updatedTask),
             });
 
             if (response.ok) {
-                const task = await response.json();
-                taskStore.getState().addTask(task);
-                navigate("/home");
+                navigate("/home", { replace: true });
             } else {
                 const responseBody = await response.text();
-                console.error("Error adding task:", response.statusText, responseBody);
+                console.error("Error updating task:", response.statusText, responseBody);
             }
         } catch (error) {
-            console.error("Error adding task:", error);
+            console.error("Error updating task:", error);
         }
     };
 
+    useEffect(() => {
+        setTaskDetails({
+            title: task.title,
+            description: task.description,
+            startDate: task.startDate,
+            limitDate: task.limitDate,
+            category: task.category.name,
+        });
+    }
+    , [task]);
+
     return (
         <div className="add-task">
-            <div className="detalhes-task">
-                <div>
+            <div className="addTask-title">
+                <div className="labels-addTask-top">
                     <label htmlFor="titulo-task">Title</label>
-                    <input
-                        type="text"
-                        id="titulo-task"
-                        name="title"
-                        value={taskDetails.title}
-                        onChange={handleInputChange}
-                    />
                 </div>
-                <div>
+                <div className="input-addTask-title">
+                    <input type="text" id="titulo-task" name="title" value={taskDetails.title} onChange={handleInputChange} />
+                </div>
+            </div>
+            <div className="addTask-description">
+                <div className="labels-addTask-top">
                     <label htmlFor="descricao-task">Description</label>
-                    <textarea
-                        className="text-task"
-                        id="descricao-task"
-                        name="description"
-                        value={taskDetails.description}
-                        onChange={handleInputChange}
-                    ></textarea>
                 </div>
-                <div className="task-save">
-                    <button
-                        className="save-button"
-                        id="save-button"
-                        onClick={handleSaveTask}
-                    >
-                        Save
-                    </button>
-                    <button
-                        className="cancel-button"
-                        id="cancel-button"
-                        onClick={() => navigate("/home")}
-                    >
-                        Cancel
-                    </button>
+                <div className="input-addTask-description">
+                    <textarea id="descricao-task" name="description" value={taskDetails.description} onChange={handleInputChange} />
                 </div>
             </div>
-            <div className="task-buttons">
-                <div className="status-and-priority">
-                    <div class="task-status">
-                        <h4 class="taskH4">Status</h4>
-                        <div class="status-buttons">
-                            <button
-                                class="status-button todo"
-                                id="todo-button"
-                            >
-                                To do
-                            </button>
-                            <button
-                                class="status-button doing"
-                                id="doing-button"
-                            >
-                                Doing
-                                </button>
-                            <button
-                                class="status-button done"
-                                id="done-button"
-                            >
-                                Done
-                            </button>
-                        </div>
-                    </div>
-                    <div className="task-priority">
-                        <h4 className="taskH4">Priority</h4>
-                        <div className="priority-buttons">
-                            <button
-                                className={`priority-button low ${priority === "Low" ? "selected" : ""}`}
-                                id="low-button"
-                                onClick={() => handlePriorityClick("Low")}
-                            >
-                                Low
-                            </button>
-                            <button
-                                className={`priority-button medium ${priority === "Medium" ? "selected" : ""}`}
-                                id="medium-button"
-                                onClick={() => handlePriorityClick("Medium")}
-                            >
-                                Medium
-                            </button>
-                            <button
-                                className={`priority-button high ${priority === "High" ? "selected" : ""}`}
-                                id="high-button"
-                                onClick={() => handlePriorityClick("High")}
-                            >
-                                High
-                            </button>
-                        </div>
-                    </div>
-                    <div className="dates">
-                        <h4 className="taskH4">Dates</h4>
-                        <div className="startDateDiv">
-                            <label
-                                htmlFor="startDate-editTask"
-                                className="label-start-date"
-                            >
-                                Start date:
-                            </label>
-                            <input
-                                type="date"
-                                id="startDate-editTask"
-                                name="startDate"
-                                value={taskDetails.startDate}
-                                onChange={handleDateChange}
-                            />
-                            <label htmlFor="endDate-editTask">End date:</label>
-                            <input
-                                type="date"
-                                id="endDate-editTask"
-                                name="endDate"
-                                value={taskDetails.endDate}
-                                onChange={handleDateChange}
-                            />
-                        </div>
-                    </div>
-                    <div className="category">
-                        <h4 className="taskH4">Category</h4>
-                        <div id="div-dropdown">
-                            <select
-                                id="task-category-edit"
-                                name="category"
-                                value={taskDetails.category}
-                                onChange={handleInputChange}
-                                required
-                            >
-                                <option value="" disabled>
-                                    Category
-                                </option>
-                                {categories.map((category, index) => (
-                                    <option key={index} value={category.name}>{category.name}</option>
-                                ))}
-                            </select>
-                        </div>
-                    </div>
+            <div className="addTask-startDate">
+                <div className="labels-addTask-top">
+                    <label htmlFor="dataInicio-task">Start Date</label>
+                </div>
+                <div className="input-addTask-startDate">
+                    <input type="date" id="dataInicio-task" name="startDate" value={taskDetails.startDate} onChange={handleDateChange} />
                 </div>
             </div>
+            <div className="addTask-limitDate">
+                <div className="labels-addTask-top">
+                    <label htmlFor="dataLimite-task">Limit Date</label>
+                </div>
+                <div className="input-addTask-limitDate">
+                    <input type="date" id="dataLimite-task" name="limitDate" value={taskDetails.limitDate} onChange={handleDateChange} />
+                </div>
+            </div>
+            <div className="addTask-category">
+                <div className="labels-addTask-top">
+                    <label htmlFor="categoria-task">Category</label>
+                </div>
+                <div className="input-addTask-category">
+                    <select id="categoria-task" name="category" value={taskDetails.category} onChange={handleInputChange}>
+                        <option value="">Choose category</option>
+                        {categories && categories.map(category => (
+                            <option key={category} value={category}>{category}</option>
+                        ))}
+                    </select>
+                </div>
+            </div>
+            <button className="save-button" onClick={handleSaveTask}>Save</button>
         </div>
     );
 }
 
-export default AddTask;
+export default EditTask;
