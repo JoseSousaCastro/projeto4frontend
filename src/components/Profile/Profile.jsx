@@ -19,6 +19,8 @@ function Profile() {
     const updatePhone = userStore((state) => state.updatePhone);
     const updatePhotoURL = userStore((state) => state.updatePhotoURL);
 
+    const token = userStore((state) => state.token);
+
     const handleSubmit = async (event) => {
         event.preventDefault();
 
@@ -38,7 +40,7 @@ function Profile() {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
-                        token: userStore((state) => state.token),
+                        token: token,
                     },
                     body: JSON.stringify(user),
                 }

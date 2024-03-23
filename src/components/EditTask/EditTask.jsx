@@ -4,7 +4,7 @@ import { taskStore } from "../../stores/TaskStore";
 import { userStore } from "../../stores/UserStore";
 import { categoryStore } from "../../stores/CategoryStore";
 import { useNavigate } from "react-router-dom";
-import "./AddTask.css";
+import "../EditTask/EditTask.css";
 
 function AddTask() {
     const navigate = useNavigate();
@@ -19,6 +19,8 @@ function AddTask() {
         category: "",
     });
 
+    const token = userStore((state) => state.token);
+
     useEffect(() => {
         // Aqui você deve buscar as categorias da CategoryStore
         const fetchCategories = async () => {
@@ -27,7 +29,7 @@ function AddTask() {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        token: userStore((state) => state.token),
+                        token: token,
                     },
                 });
                 if (response.ok) {
@@ -84,7 +86,7 @@ function AddTask() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    token: userStore((state) => state.token),
+                    token: token,
                 },
                 body: JSON.stringify(newTask),
             });

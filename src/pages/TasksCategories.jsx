@@ -2,11 +2,10 @@ import React from "react";
 import '../index.css'
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
-import Profile from "../components/Profile/Profile";
-import Password from "../components/Password/Password";
+import CategoriesAside from "../components/CategoriesAside/CategoriesAside";
+import CategoriesMain from "../components/CategoriesMain/CategoriesMain";
 
-function Home() {
-
+function TasksCategories() {
 
     return (
         <div className="Home" id="home-outer-container">
@@ -16,16 +15,18 @@ function Home() {
                 </div>
                 <div className="aside-main-home-container">
                     <div className="aside-home-container">
-                        <Password />
+                        <CategoriesAside />
                     </div>
                     <div className="main-home-container">
-                        <Profile />
+                        <CategoriesMain />
                     </div>
                 </div>
-                <Footer />
+                <div className="footer-home-container">
+                    <Footer />
+                </div>
             </div>
         </div>
     );
 }
 
-export default Home
+export default TasksCategories

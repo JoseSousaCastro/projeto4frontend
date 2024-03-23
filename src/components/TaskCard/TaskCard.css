@@ -27,32 +27,34 @@
     padding: 0;
   }
 
-  .panel {
-    height: 500px;
-    width: 300px;
-    border-radius: 10px;
-    margin: 20px 50px;
-    padding: 20px;
-    border: 2px solid var(--green3);
-    overflow: auto;
-}
-
-#categories {
+  .task {
     background-color: var(--white);
+    border-radius: 4px;
+    height: 80px;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .task-title-solo {
+    font-size: 15px;
+    font-weight: bold;
+    color: var(--green3);
+    text-transform: uppercase;
+  }
+  .task-description-solo {
+    font-size: 13px;
+    color: var(--green3);
+  }
+
+.border-green {
+    border: 4px solid var(--verde);
 }
 
-.panel::-webkit-scrollbar-thumb {
-    background-color: var(--green2);
-    border-top-right-radius: 8px;
+.border-yellow {
+    border: 4px solid var(--amarelo);
 }
 
-.panel::-webkit-scrollbar-track {
-    margin-right: 1px;
-    background-color: var(--white);
-    border-top-right-radius: 9px;
-}
-
-.panel::-webkit-scrollbar {
-    height: calc(100% - 2px);
-    padding-right: 1px;
+.border-red {
+    border: 4px solid var(--vermelho);
 }

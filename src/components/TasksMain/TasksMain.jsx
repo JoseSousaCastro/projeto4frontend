@@ -3,9 +3,14 @@ import { useState, useEffect } from "react";
 import "../TasksMain/TasksMain.css";
 import { taskStore } from "../../stores/TaskStore";
 import { userStore } from "../../stores/UserStore";
+import TaskCard from "../TaskCard/TaskCard";
 
 function TasksMain() {
     const [tasks, setTasks] = useState([]);
+    const [tasksDoing, setTasksDoing] = useState([]);
+    const [tasksDone, setTasksDone] = useState([]);
+
+    const token = userStore((state) => state.token);
 
     useEffect(() => {
         const fetchTasks = async () => {
@@ -15,12 +20,15 @@ function TasksMain() {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        token: userStore((state) => state.token),                    }
+                        token: token,
+                    }
                 });
 
                 if (response.ok) {
                     const data = await response.json();
-                    setTasks(data);
+                    setTasks(data.filter(task => task.stateId === "TODO"));
+                    setTasksDoing(data.filter(task => task.stateId === "DOING"));
+                    setTasksDone(data.filter(task => task.stateId === "DONE"));
                     // Adiciona as tarefas à store
                     data.forEach(task => taskStore.getState().addTask(task));
                 } else {
@@ -32,7 +40,7 @@ function TasksMain() {
         };
 
         fetchTasks();
-    }, []);
+    }, [token]);
 
     return (
         <div className="tasks-users-list" id="tasks-users-list-outer-container">
@@ -43,7 +51,9 @@ function TasksMain() {
                     </div>
                     <div className="panel" id="todo">
                         {tasks.filter(task => task.stateId === "TODO").map(task => (
-                            <div key={task.id}>{task.title}</div>
+                            <div className="task-card-taskMain">
+                                <TaskCard task={task} />
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -53,7 +63,9 @@ function TasksMain() {
                     </div>
                     <div className="panel" id="doing">
                         {tasks.filter(task => task.stateId === "DOING").map(task => (
-                           <div key={task.id}>{task.title}</div>
+                        <div className="task-card-taskMain">
+                            <TaskCard task={task} />
+                        </div>
                         ))}
                     </div>
                 </div>
@@ -63,7 +75,9 @@ function TasksMain() {
                     </div>
                     <div className="panel" id="done">
                         {tasks.filter(task => task.stateId === "DONE").map(task => (
-                            <div key={task.id}>{task.title}</div>
+                        <div className="task-card-taskMain">
+                            <TaskCard task={task} />
+                        </div>
                         ))}
                     </div>
                 </div>

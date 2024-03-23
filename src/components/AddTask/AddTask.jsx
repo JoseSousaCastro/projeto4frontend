@@ -2,9 +2,8 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { taskStore } from "../../stores/TaskStore";
 import { userStore } from "../../stores/UserStore";
-import { categoryStore } from "../../stores/CategoryStore";
 import { useNavigate } from "react-router-dom";
-import "./AddTask.css";
+import "../AddTask/AddTask.css";
 
 function AddTask() {
     const navigate = useNavigate();
@@ -19,6 +18,8 @@ function AddTask() {
         category: "",
     });
 
+    const token = userStore((state) => state.token);
+
     useEffect(() => {
         // Aqui você deve buscar as categorias da CategoryStore
         const fetchCategories = async () => {
@@ -27,7 +28,7 @@ function AddTask() {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        token: userStore((state) => state.token),
+                        token: token,
                     },
                 });
                 if (response.ok) {
@@ -42,7 +43,7 @@ function AddTask() {
         };
 
         fetchCategories();
-    }, []); // Este efeito só deve executar uma vez, então deixamos o array de dependências vazio
+    }, [token]); // Este efeito só deve executar uma vez, então deixamos o array de dependências vazio
 
 
 
@@ -84,7 +85,7 @@ function AddTask() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    token: userStore((state) => state.token),
+                    token: token,
                 },
                 body: JSON.stringify(newTask),
             });

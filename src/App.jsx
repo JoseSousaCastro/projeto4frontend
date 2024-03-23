@@ -9,6 +9,10 @@ import TasksMain from './components/TasksMain/TasksMain';
 import TasksAddTask from './pages/TasksAddTask';
 import AsideLogo from './components/AsideLogo/AsideLogo';
 import CategoriesMain from './components/CategoriesMain/CategoriesMain';
+import DeletedTasks from './components/DeletedTasks/DeletedTasks';
+import TasksDeleted from './pages/TasksDeleted';
+import CategoriesAside from './components/CategoriesAside/CategoriesAside';
+import TasksCategories from './pages/TasksCategories';
 
 function App() {
   return (
@@ -22,6 +26,10 @@ function App() {
       <Route path="/add-task" element={<TasksAddTask />} />
       <Route path="/aside-logo" element={<AsideLogo />} />
       <Route path="/categories" element={<CategoriesMain />} />
+      <Route path="/deleted-tasks" element={<DeletedTasks />} />
+      <Route path="/tasks-deleted" element={<TasksDeleted />} />
+      <Route path="/categories-aside" element={<CategoriesAside />} />
+      <Route path="/tasks-categories" element={<TasksCategories />} />
 
     </Routes>
   );

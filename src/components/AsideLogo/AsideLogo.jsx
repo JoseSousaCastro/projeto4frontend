@@ -1,5 +1,5 @@
 import React from "react";
-import "./AsideLogo.css";
+import "../AsideLogo/AsideLogo.css";
 
 function AsideLogo() {
     return (

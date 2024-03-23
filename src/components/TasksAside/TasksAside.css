@@ -28,13 +28,14 @@
   }
 
 
-.aside {
+.aside-tasksAside {
     width: 300px;
     min-height: 720px;
     max-height: 1000px;
     float: left;
     background-color: var(--light-grey);
     text-align: center;
+    padding-top: 0px;
   }
 
 .buttons-top {

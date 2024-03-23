@@ -1,18 +1,19 @@
 import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../pages/Login.css"
 import { userStore } from "../stores/UserStore.jsx";
+import { categoryStore } from "../stores/CategoryStore.jsx";
+import "../pages/Login.css";
 
 function Login() {
     const [inputs, setInputs] = useState({});
     const navigate = useNavigate();
     const updateUserStore = userStore(state => state);
+    const updateCategoryStore = categoryStore(state => state);
 
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-    
         setInputs(values => ({...values, [name]: value}));
     }
     
@@ -36,28 +37,32 @@ function Login() {
             if (response.ok) {
                 const user = await response.json();
                 updateUserStore.updateUsername(user.username);
-                updateUserStore.updateEmail(user.email);
-                updateUserStore.updateFirstName(user.firstName);
-                updateUserStore.updateLastName(user.lastName);
-                updateUserStore.updatePhone(user.phone);
                 updateUserStore.updateToken(user.token);
-                updateUserStore.updatePhotoURL(user.photoURL);
-                updateUserStore.updateTypeOfUser(user.typeOfUser);
-                console.log("User:", user);
-                console.log("Username:", user.username);
-                console.log("Token:", user.token);
-                console.log("PhotoURL:", user.photoURL);
-                console.log("TypeOfUser:", user.typeOfUser);
-                console.log("Email:", user.email);
-                console.log("FirstName:", user.firstName);
-                console.log("LastName:", user.lastName);
-                console.log("Phone:", user.phone);
-                
+                // Atualize outros dados do usuário conforme necessário
+
+                // Fetch das categorias e armazenamento na store de categorias
+                try {
+                    const responseCategories = await fetch("http://localhost:8080/project_backend/rest/users/categories", {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            token: user.token, // Adicione o token de autenticação
+                        },
+                    });
+
+                    if (responseCategories.ok) {
+                        const categories = await responseCategories.json();
+                        console.log("Categorias:", categories);
+                        updateCategoryStore.setCategories(categories.map(category => category.name));
+                    } else {
+                        console.error("Failed to fetch categories:", responseCategories.statusText);
+                    }
+                } catch (error) {
+                    console.error("Error fetching categories:", error);
+                }
 
                 console.log("Login feito com sucesso!");
                 navigate('/home', { replace: true });
-
-                
             } else {
                 const responseBody = await response.json();
                 console.error("Erro no login:", response.statusText, responseBody);
@@ -75,9 +80,9 @@ function Login() {
            <div className="loginpanel">
                 <img src="/multimedia/logo-scrum-01.png" id="logo-login" alt="Agile-Scrum-logo" width="250" />
                 <form id="login-form" className="input-login" onSubmit={handleSubmit}>
-                <input type="text" id="username" name="username" placeholder="username" onChange={handleChange} required />
-                <input type="password" id="password" name="password" placeholder="password" onChange={handleChange} required />
-                <button id="loginButton">Sign in</button>
+                    <input type="text" id="username" name="username" placeholder="username" onChange={handleChange} required />
+                    <input type="password" id="password" name="password" placeholder="password" onChange={handleChange} required />
+                    <button id="loginButton">Sign in</button>
                 </form>
                 <p>Don't have an account? <Link to="/register" id="register-link">Sign up</Link></p>
             </div>

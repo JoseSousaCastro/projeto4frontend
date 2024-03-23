@@ -7,13 +7,18 @@ import { userStore } from "../../stores/UserStore";
 
 function Header() {
     const navigate = useNavigate();
+    const updateUserStore = userStore(state => state);
+
 
     const username = userStore(state => state.username);
     const photoURL = userStore(state => state.photoURL);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        navigate('/', {replace: true});
+        // Limpar dados sensíveis durante o logout
+        updateUserStore.updateToken(""); // Limpar o token
+        updateUserStore.updatePassword(""); // Limpar a senha, se estiver armazenada
+        navigate('/', { replace: true });
     }
 
     const handleClick = (event) => {
@@ -30,8 +35,8 @@ function Header() {
                 <div className="nav-left-container">
                     <nav className="nav-menu-left">
                         <ul id="menu">
-                            <li id="nav-home"><Link to="/home" >My Scrum</Link></li>
-                            <li id="nav-all-tasks"><Link to="/">All Tasks</Link></li>
+                            <li id="nav-tasks"><Link to="/home">Tasks</Link></li>
+                            <li id="nav-users"><Link to="/">Users</Link></li>
                         </ul>
                     </nav>
                 </div>

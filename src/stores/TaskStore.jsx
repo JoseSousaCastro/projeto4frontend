@@ -10,12 +10,18 @@ export const taskStore = create(
             priority: "",
             startDate: "",
             limitDate: "",
+            stateId: "",
+            category: "",
+            erased: false,
 
             updateTitle: (title) => set({ title }),
             updateDescription: (description) => set({ description }),
             updatePriority: (priority) => set({ priority }),
             updateStartDate: (startDate) => set({ startDate }),
             updateLimitDate: (limitDate) => set({ limitDate }),
+            updateStatusId: (stateId) => set({ stateId }),
+            updateCategory: (category) => set({ category }),
+            updateErased: (erased) => set({ erased }),
 
             
             tasks: [],

@@ -4,7 +4,7 @@ Filter tasks by category - aside dropdown */
 
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "./TasksAside.css";
+import "../TasksAside/TasksAside.css";
 import { userStore } from "../../stores/UserStore";
 import { categoryStore } from "../../stores/CategoryStore";
 
@@ -20,7 +20,7 @@ function TasksAside() {
     const filterTasksByUser = userStore((state) => state.filterTasksByUser);
     const filterTasksByCategory = userStore((state) => state.filterTasksByCategory);
 
-
+    const token = userStore((state) => state.token);
 
     const handleFilterByUser = async (event) => {
         event.preventDefault();
@@ -31,7 +31,7 @@ function TasksAside() {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    token: userStore((state) => state.token),
+                    token: token,
                 },
             });
             if (response.ok) {
@@ -57,7 +57,7 @@ function TasksAside() {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    token: userStore((state) => state.token),
+                    token: token,
                 },
             });
             if (response.ok) {
@@ -82,7 +82,7 @@ function TasksAside() {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    token: userStore((state) => state.token),
+                    token: token,
                 },
             });
             if (response.ok) {
@@ -100,16 +100,16 @@ function TasksAside() {
 
     return (
         <div>
-            <div className="aside">
+            <div className="aside-tasksAside">
                 <div className="buttons-top">
                 {/* Botão para adicionar tarefa que leva à página Add Task */}
                 <Link to="/add-task">
                     <button className="aside-button">Add Task</button>
                 </Link>
-                <Link to="/categories">
+                <Link to="/tasks-categories">
                     <button className="aside-button" id="categories-button">Categories</button>
                 </Link>
-                <Link to="/deleted-tasks">
+                <Link to="/tasks-deleted">
                     <button className="aside-button" id="deleted-tasks-button">Deleted Tasks</button>
                 </Link>
                 </div>
@@ -137,7 +137,7 @@ function TasksAside() {
                     <select className="dropdown-select" onChange={(e) => setSelectedCategory(e.target.value)}>
                         <option value="">Choose category</option>
                         {categories && categories.map(category => (
-                            <option key={category.name} value={category.name}>{category.name}</option>
+                            <option key={category} value={category}>{category}</option>
                         ))}
                     </select>
                     {/* Botão para filtrar tarefas pela categoria selecionada */}
