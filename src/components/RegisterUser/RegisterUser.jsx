@@ -55,7 +55,7 @@ return (
     <div className="Register" id="register-outer-container">
         <div className="page-wrap" id="register-page-wrap">
             <div className="center-container-register">
-                <div className="registerPanel">
+                <div className="registerPanel-user">
                     <form id="registrationForm" className="inputs-register" onSubmit={handleSubmit}>
                         <div className="right-inputs">
                             <input type="text" className="inputRegister-fields" id="username-register" name="username" placeholder="Username" onChange={handleChange} required />
