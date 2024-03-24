@@ -57,16 +57,17 @@
 }
 
 .task-description-solo {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 13px;
-    color: var(--green3);
-    padding-inline: 8px;
-    align-self: flex-start;
-    /* Defina a altura máxima que deseja para a descrição */
-    max-height: 60px; /* Ajuste conforme necessário */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  color: var(--green3);
+  padding-inline: 8px;
+  align-self: flex-start;
+  /* Defina a altura máxima que deseja para a descrição */
+  max-height: 38px; /* Ajuste conforme necessário */
+  -webkit-line-clamp: 2; /* Limita o texto a 2 linhas */
 }
 
 

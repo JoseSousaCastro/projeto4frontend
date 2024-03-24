@@ -2,29 +2,30 @@ import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { userStore } from "./UserStore";
 
-// Define a store
 export const taskStore = create(
     persist(
         (set) => ({
+            id: null,
             title: "",
             description: "",
-            priority: "",
-            startDate: "",
-            limitDate: "",
-            stateId: "",
+            stateId: 0,
+            priority: 0,
+            startDate: null,
+            limitDate: null,
             category: "",
             erased: false,
+            owner: { id: null, name: "" },
 
+            updateId: (id) => set({ id }),
             updateTitle: (title) => set({ title }),
             updateDescription: (description) => set({ description }),
+            updateStateId: (stateId) => set({ stateId }),
             updatePriority: (priority) => set({ priority }),
             updateStartDate: (startDate) => set({ startDate }),
             updateLimitDate: (limitDate) => set({ limitDate }),
-            updateStatusId: (stateId) => set({ stateId }),
-            updateCategory: (category) => set({ category }),
+            updateCategory: (category) => set({ category }), // Atualiza apenas o atributo category
             updateErased: (erased) => set({ erased }),
 
-            
             tasks: [],
             setTasks: (tasks) => {
                 console.log("Tarefas armazenadas:", tasks);
@@ -43,6 +44,7 @@ export const taskStore = create(
                         const tasks = await response.json();
                         console.log("Tarefas recebidas:", tasks);
                         set({ tasks });
+                        console.log("Tarefas armazenadas no fetch:", tasks);
                     } else {
                         console.error("Failed to fetch tasks:", response.statusText);
                     }

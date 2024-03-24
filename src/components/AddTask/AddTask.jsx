@@ -10,6 +10,7 @@ function AddTask() {
     const navigate = useNavigate();
     const [priority, setPriority] = useState("");
     const { categories } = categoryStore(); // Obtém a lista de categorias
+    const { fetchTasks } = taskStore(); // Obtém a lista de tarefas
 
     const [taskDetails, setTaskDetails] = useState({
         title: "",
@@ -71,8 +72,7 @@ function AddTask() {
             });
 
             if (response.ok) {
-                const task = await response.json();
-                taskStore.getState().addTask(task);
+                fetchTasks();                
                 navigate("/home");
             } else {
                 const responseBody = await response.text();
