@@ -5,14 +5,14 @@ import { userStore } from "../../stores/UserStore";
 
 
 function UsersAside() {
-    const { fetchUsers } = userStore();
-    const [users, setUsers] = useState([]);
+    const { users, fetchUsers } = userStore();
+    const [setUsers] = useState([]);
     const navigate = useNavigate();
 
     const [selectedUser, setSelectedUser] = useState("");
     const [selectedTypeOfUser, setSelectedTypeOfUser] = useState("");
+    const [username, setUsername] = useState(""); // Estado para armazenar o nome de usuário
 
-    const username = userStore((state) => state.username);
     const token = userStore((state) => state.token);
 
     useEffect(() => {
@@ -28,6 +28,22 @@ function UsersAside() {
         getUsers();
     }, [fetchUsers]);
 
+    useEffect(() => {
+        // Se um usuário estiver selecionado e os usuários estiverem carregados
+        if (selectedUser && users.length) {
+            // Encontra o usuário selecionado na lista de usuários
+            const selectedUserObj = users.find(user => user.id === selectedUser);
+            // Se o usuário existir e tiver um tipo, defina o tipo de usuário selecionado como o tipo do usuário
+            if (selectedUserObj && selectedUserObj.type) {
+                setSelectedTypeOfUser(selectedUserObj.type);
+                setUsername(selectedUserObj.username); // Define o nome de usuário
+            }
+        }
+    }, [selectedUser, users]);
+
+
+    console.log("username", username);
+
     const handleTypeOfUser = async () => {
         try {
             const response = await fetch(`http://localhost:8080/project_backend/rest/users/update/${username}/role`, {
@@ -35,6 +51,7 @@ function UsersAside() {
                 headers: {
                     "Content-Type": "application/json",
                     token: token,
+                    role: selectedTypeOfUser // Adicionando o cabeçalho role com o valor selecionado
                 },
                 body: JSON.stringify({
                     role: selectedTypeOfUser
@@ -67,13 +84,13 @@ function UsersAside() {
                 {/* Dropdown menu para alterar role do user */}
                 <label className="dropdown-label">Change user role</label>
                 <div className="dropdown">
-                    <select className="dropdown-select" onChange={(e) => setSelectedUser(e.target.value)}>
+                    <select className="dropdown-select" onChange={(e) => setSelectedUser(e.target.value)} value={selectedUser}>
                         <option value="">Choose user</option>
-                        {users && users.map(user => (
-                            <option key={user.id} value={user.id}>{user.username}</option>
+                        {users && users.filter(user => user.visible).map(user => (
+                            <option key={user.id} value={user.id}>{user.firstName} {user.lastName}</option>
                         ))}
                     </select>
-                    <select className="dropdown-select role-select" onChange={(e) => setSelectedTypeOfUser(e.target.value)}>
+                    <select className="dropdown-select role-select" onChange={(e) => setSelectedTypeOfUser(e.target.value)} value={selectedTypeOfUser}>
                         <option value="">Choose role</option>
                         <option value="100">Developer</option>
                         <option value="200">Scrum Master</option>

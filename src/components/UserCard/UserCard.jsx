@@ -9,7 +9,7 @@ export default function UserCard({ user }) {
     const navigate = useNavigate();
     const token = userStore((state) => state.token);
 
-    const { id, username, firstName, lastName, visible } = user;
+    const { username, firstName, lastName, visible } = user;
 
     const handleEraseUser = async () => {
         try {
@@ -83,7 +83,7 @@ export default function UserCard({ user }) {
     return (
         <div className="user" style={{ backgroundColor: visible ? "white" : "#EDEDED" }}>
             {visible ? (
-                <Link to={`/edit-user/${id}`} className="user-username-solo">
+                <Link to={`/edit-user/${username}`} className="user-username-solo">
                     {firstName} {lastName}
                 </Link>
             ) : (

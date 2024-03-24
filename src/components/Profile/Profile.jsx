@@ -7,6 +7,8 @@ function Profile() {
     const [inputs, setInputs] = useState("");
     const navigate = useNavigate();
 
+    const token = userStore((state) => state.token);
+
     const username = userStore((state) => state.username);
     const email = userStore((state) => state.email);
     const firstName = userStore((state) => state.firstName);
@@ -18,8 +20,6 @@ function Profile() {
     const updateLastName = userStore((state) => state.updateLastName);
     const updatePhone = userStore((state) => state.updatePhone);
     const updatePhotoURL = userStore((state) => state.updatePhotoURL);
-
-    const token = userStore((state) => state.token);
 
     const handleSubmit = async (event) => {
         event.preventDefault();

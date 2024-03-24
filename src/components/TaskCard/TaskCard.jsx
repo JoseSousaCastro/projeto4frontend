@@ -110,7 +110,11 @@ export default function TaskCard({ task }) {
     };
 
     return (
-        <div className={`task ${priorityBorderClass}`} style={{ backgroundColor: erased ? "#EDEDED" : "white" }}>
+        <div draggable onDragStart={(e) => {
+            e.dataTransfer.setData('text/plain', task.id);
+          }
+        
+        } className={`task ${priorityBorderClass}`} style={{ backgroundColor: erased ? "#EDEDED" : "white" }}>
             {erased ? (
                 <div className="task-title-solo task-title-solo-erased">
                     {title}

@@ -27,7 +27,7 @@ function App() {
       <Route path="/edit-task/:taskId" element={<TasksEditTask />} />
       <Route path="/register-user" element={<RegisterUserPage />} />
       <Route path="/deleted-users" element={<UsersDeleted />} />
-      <Route path="/edit-user/:userId" element={<UsersEditUser />} />
+      <Route path="/edit-user/:username" element={<UsersEditUser />} />
       <Route path="/users-list" element={<UsersList />} />
     </Routes>
   );

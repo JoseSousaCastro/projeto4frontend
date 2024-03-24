@@ -35,7 +35,7 @@ function TasksMain() {
                     <div className="titulo-main">
                         <h2 className="main-home">To do</h2>
                     </div>
-                    <div className="panel" id="todo">
+                    <div className="panel" id="todo" onDragOver={(e) => {e.preventDefault()}} onDrop={(e)=> {const taskid=e.dataTransfer.getData('text/plain'); }} >
                         {tasks.map(task => (
                             <div className="task-card-taskMain" key={task.id}>
                                 <TaskCard task={task} />
@@ -47,7 +47,7 @@ function TasksMain() {
                     <div className="titulo-main">
                         <h2 className="main-home">Doing</h2>
                     </div>
-                    <div className="panel" id="doing">
+                    <div className="panel" id="doing" onDragOver={(e) => {e.preventDefault()}} onDrop={(e)=> {const taskid=e.dataTransfer.getData('text/plain'); }} >
                         {tasksDoing.map(task => (
                             <div className="task-card-taskMain" key={task.id}>
                                 <TaskCard task={task} />
@@ -59,7 +59,7 @@ function TasksMain() {
                     <div className="titulo-main">
                         <h2 className="main-home">Done</h2>
                     </div>
-                    <div className="panel" id="done">
+                    <div className="panel" id="done" onDragOver={(e) => {e.preventDefault()}} onDrop={(e)=> {const taskid=e.dataTransfer.getData('text/plain'); }} >
                         {tasksDone.map(task => (
                             <div className="task-card-taskMain" key={task.id}>
                                 <TaskCard task={task} />
