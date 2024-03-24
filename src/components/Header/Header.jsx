@@ -39,7 +39,7 @@ function Header() {
                     <nav className="nav-menu-left">
                         <ul id="menu">
                             <li id="nav-tasks"><Link to="/home">Tasks</Link></li>
-                            <li id="nav-users"><Link to="/">Users</Link></li>
+                            <li id="nav-users"><Link to="/users-list">Users</Link></li>
                         </ul>
                     </nav>
                 </div>

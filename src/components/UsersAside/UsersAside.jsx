@@ -30,14 +30,14 @@ function UsersAside() {
                             <option key={user.id} value={user.id}>{user.username}</option>
                         ))}
                     </select>
-                    <select className="dropdown-select role-select" onChange={(e) => setSelectedRole(e.target.value)}>
+                    <select className="dropdown-select role-select" onChange={(e) => setSelectedTypeOfUser(e.target.value)}>
                         <option value="">Choose role</option>
                         <option value="100">Developer</option>
                         <option value="200">Scrum Master</option>
                         <option value="300">Product Owner</option>
                     </select>
                     <div>
-                        <button className="filter-button" onClick={handleFilterByUser}>Change role</button>
+                        <button className="filter-button" onClick={handleTypeOfUser}>Change role</button>
                     </div>
                     {/* Botão para deletar todas as tarefas do usuário selecionado */}
                 </div>

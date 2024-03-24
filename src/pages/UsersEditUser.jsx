@@ -1,11 +1,11 @@
 import React from "react";
 import '../index.css'
 import Header from "../components/Header/Header";
-import DeletedUsers from "../components/DeletedUsers/DeletedUsers";
+import EditUser from "../components/EditUser/EditUser";
 import Footer from "../components/Footer/Footer";
 import AsideLogo from "../components/AsideLogo/AsideLogo";
 
-function UsersDeleted() {
+function UsersEditUser() {
 
 
 
@@ -20,7 +20,7 @@ function UsersDeleted() {
                         <AsideLogo />
                     </div>
                     <div className="main-home-container">
-                        <DeletedUsers />
+                        <EditUser />
                     </div>
                 </div>
                 <div className="footer-home-container">
@@ -31,4 +31,4 @@ function UsersDeleted() {
     );
 }
 
-export default UsersDeleted
+export default UsersEditUser

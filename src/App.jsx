@@ -14,6 +14,10 @@ import TasksDeleted from './pages/TasksDeleted';
 import CategoriesAside from './components/CategoriesAside/CategoriesAside';
 import TasksCategories from './pages/TasksCategories';
 import TasksEditTask from './pages/TasksEditTask';
+import UsersAddUser from './pages/UsersAddUser';
+import UsersDeleted from './pages/UsersDeleted';
+import UsersEditUser from './pages/UsersEditUser';
+import UsersList from './pages/UsersList';
 
 
 function App() {
@@ -33,6 +37,10 @@ function App() {
       <Route path="/categories-aside" element={<CategoriesAside />} />
       <Route path="/tasks-categories" element={<TasksCategories />} />
       <Route path="/edit-task/:taskId" element={<TasksEditTask />} />
+      <Route path="/add-user" element={<UsersAddUser />} />
+      <Route path="/deleted-users" element={<UsersDeleted />} />
+      <Route path="/edit-user/:userId" element={<UsersEditUser />} />
+      <Route path="/users-list" element={<UsersList />} />
     </Routes>
   );
 }
