@@ -30,11 +30,12 @@
   .user {
     background-color: white;
     border-radius: 8px;
-    height: 100px;
+    height: 50px;
     padding: 5px;
     margin-block: 10px;
     display: flex;
     flex-direction: column;
+    border: 3px solid var(--green3);
   }
   .user-username-solo {
     display: -webkit-box;

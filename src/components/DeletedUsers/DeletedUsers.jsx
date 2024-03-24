@@ -4,7 +4,28 @@ import { userStore } from "../../stores/UserStore";
 import UserCard from "../UserCard/UserCard";
 
 function DeletedUsers() {
-    const { users } = userStore();
+    const { fetchUsers, users } = userStore();
+    const [loaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        // Use fetchUsers para buscar os usuários apenas uma vez após a montagem do componente
+        if (!loaded) {
+            fetchUsers();
+            setLoaded(true);
+        }
+    }, [fetchUsers, loaded]);
+
+    // Verifica se os usuários já foram carregados
+    if (!loaded) {
+        return <div>Loading...</div>;
+    }
+
+    // Filtrar usuários invisíveis
+    const deletedUsers = users.filter(user => !user.visible);
+
+    const usersDeveloper = deletedUsers.filter(user => user.typeOfUser === 100);
+    const usersScrumMaster = deletedUsers.filter(user => user.typeOfUser === 200);
+    const usersProductOwner = deletedUsers.filter(user => user.typeOfUser === 300);
 
 
     return (
@@ -12,10 +33,10 @@ function DeletedUsers() {
             <div className="page-wrap-user-list" id="users-list-page-wrap">
                 <div className="user-section">
                     <div className="titulo-main">
-                        <h2 className="main-home">To do</h2>
+                        <h2 className="main-home">Developer</h2>
                     </div>
-                    <div className="panel" id="todo">
-                        {users.map(user => (
+                    <div className="panel" id="developer">
+                        {usersDeveloper.map(user => (
                             <div className="user-card-userMain" key={user.id}>
                                 <UserCard user={user} />
                             </div>
@@ -24,9 +45,9 @@ function DeletedUsers() {
                 </div>
                 <div className="user-section">
                     <div className="titulo-main">
-                        <h2 className="main-home">Doing</h2>
+                        <h2 className="main-home">Scrum Master</h2>
                     </div>
-                    <div className="panel" id="doing">
+                    <div className="panel" id="scrum-master">
                         {usersScrumMaster.map(user => (
                             <div className="user-card-userMain" key={user.id}>
                                 <UserCard user={user} />
@@ -36,9 +57,9 @@ function DeletedUsers() {
                 </div>
                 <div className="user-section">
                     <div className="titulo-main">
-                        <h2 className="main-home">Done</h2>
+                        <h2 className="main-home">Product Owner</h2>
                     </div>
-                    <div className="panel" id="done">
+                    <div className="panel" id="product-owner">
                         {usersProductOwner.map(user => (
                             <div className="user-card-userMain" key={user.id}>
                                 <UserCard user={user} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../TasksMain/TasksMain.css";
+import "../DeletedTasks/DeletedTasks.css";
 import { taskStore } from "../../stores/TaskStore";
 import TaskCard from "../TaskCard/TaskCard";
 

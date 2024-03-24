@@ -27,32 +27,104 @@
     padding: 0;
   }
 
-  .panel {
-    height: 500px;
-    width: 300px;
-    border-radius: 10px;
-    margin: 20px 50px;
-    padding: 20px;
-    border: 2px solid var(--green3);
-    overflow: auto;
-}
+  .page-wrap-task-list {
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 50px;
+  }
 
-#categories {
+  .task-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+  
+  .titulo-main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+.main-home {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 20px;
+    color: var(--green3);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+.tasksList {
+    width: calc(100% - 300px);
+    height: 720px;
     background-color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex: 1;
+  }  
+.panel {
+  height: 500px;
+  width: 300px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  margin-top: 20px;
+  margin-right: 50px;
+  margin-left: 50px;
+  margin-bottom: 40px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-inline: 20px;
+  border: 2px solid var(--green3);
+  overflow: auto;
+  /* Estilos da scroll bar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--green2) var(--white);
 }
-
-.panel::-webkit-scrollbar-thumb {
-    background-color: var(--green2);
-    border-top-right-radius: 8px;
+/* Cor de fundo de cada painel */
+#todo {
+  background-color: var(--todo);
 }
-
-.panel::-webkit-scrollbar-track {
-    margin-right: 1px;
-    background-color: var(--white);
-    border-top-right-radius: 9px;
+#doing {
+  background-color: var(--doing);
 }
-
-.panel::-webkit-scrollbar {
-    height: calc(100% - 2px);
-    padding-right: 1px;
+#done {
+  background-color: var(--done);
+}
+/* Estilos da scroll bar (painéis da home.html e da task no task.html) */
+/* Tamanho da barra */
+.panel::-webkit-scrollbar,
+.text-task::-webkit-scrollbar,
+.table-container::-webkit-scrollbar {
+  width: 13px;
+}
+/* Cor da barra */
+.panel::-webkit-scrollbar-thumb,
+.text-task::-webkit-scrollbar-thumb,
+.table-container::-webkit-scrollbar-thumb {
+  background-color: var(--green2);
+  border-top-right-radius: 8px;
+}
+/* Distância à direita a que a barra fica da border, cor do trilho e arredondamento para fazerstrengths
+match ao arredondamento do painel (home.html) */
+.panel::-webkit-scrollbar-track,
+.text-task::-webkit-scrollbar-track,
+.table-container::-webkit-scrollbar-track {
+  margin-right: 1px;
+  background-color: var(--white);
+  border-top-right-radius: 9px;
+}
+/* Altura da scroll bar */
+.panel::-webkit-scrollbar,
+.text-task::-webkit-scrollbar,
+.table-container::-webkit-scrollbar {
+  height: calc(100% - 2px);
+  padding-right: 1px;
 }

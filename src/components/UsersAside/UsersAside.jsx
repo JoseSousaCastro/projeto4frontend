@@ -1,25 +1,68 @@
-
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../UsersAside/UsersAside.css";
 import { userStore } from "../../stores/UserStore";
 
+
 function UsersAside() {
-    const { users } = userStore(); // Obtém a lista de usuários
+    const { fetchUsers } = userStore();
+    const [users, setUsers] = useState([]);
     const navigate = useNavigate();
+
+    const [selectedUser, setSelectedUser] = useState("");
+    const [selectedTypeOfUser, setSelectedTypeOfUser] = useState("");
+
+    const username = userStore((state) => state.username);
+    const token = userStore((state) => state.token);
+
+    useEffect(() => {
+        const getUsers = async () => {
+            try {
+                const users = await fetchUsers();
+                setUsers(users);
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
+        };
+
+        getUsers();
+    }, [fetchUsers]);
+
+    const handleTypeOfUser = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/project_backend/rest/users/update/${username}/role`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    token: token,
+                },
+                body: JSON.stringify({
+                    role: selectedTypeOfUser
+                }),
+            });
+            if (response.ok) {
+                await fetchUsers();
+                navigate("/users-list", { replace: true });
+            } else {
+                const responseBody = await response.text();
+                console.error("Error changing user role:", response.statusText, responseBody);
+            }
+        } catch (error) {
+            console.error("Error changing user role:", error);
+        }
+    }
 
     return (
         <div>
             <div className="aside-usersAside">
                 <div className="buttons-top">
-                {/* Botão para adicionar tarefa que leva à página Add user */}
-                <Link to="/add-user">
-                    <button className="aside-button">Add User</button>
-                </Link>
-                <Link to="/users-deleted">
-                    <button className="aside-button" id="deleted-users-button">Deleted Users</button>
-                </Link>
+                    {/* Botão para adicionar tarefa que leva à página Add user */}
+                    <Link to="/register-user">
+                        <button className="aside-button">Add User</button>
+                    </Link>
+                    <Link to="/deleted-users">
+                        <button className="aside-button" id="deleted-users-button">Deleted Users</button>
+                    </Link>
                 </div>
                 {/* Dropdown menu para alterar role do user */}
                 <label className="dropdown-label">Change user role</label>

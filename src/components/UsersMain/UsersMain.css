@@ -89,13 +89,13 @@
   scrollbar-color: var(--green2) var(--white);
 }
 /* Cor de fundo de cada painel */
-#todo {
+#developer {
   background-color: var(--todo);
 }
-#doing {
+#scrum-master {
   background-color: var(--doing);
 }
-#done {
+#product-owner {
   background-color: var(--done);
 }
 /* Estilos da scroll bar (painéis da home.html e da user no user.html) */
