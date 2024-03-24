@@ -16,7 +16,7 @@ export const userStore = create(
         phone: "",
         password: "",
         userTasks: [],
-        visible: true,
+        erased: false,
         updateUsername: (username) => set({ username }),
         updateToken: (token) => set({ token }),
         updatePhotoURL: (photoURL) => set({ photoURL }),
@@ -28,7 +28,7 @@ export const userStore = create(
         updatePhone: (phone) => set({ phone }),
         updatePassword: (password) => set({ password }),
         updateUserTasks: (userTasks) => set({ userTasks }),
-        updateVisible: (visible) => set({ visible }),
+        updateErased: (erased) => set({ erased }),
 
         deleteAllUserTasks: () => set({ userTasks: [] }),
         }),

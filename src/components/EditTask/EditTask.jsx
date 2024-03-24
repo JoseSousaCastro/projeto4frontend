@@ -16,18 +16,17 @@ function EditTask() {
     console.log("Task no edit task:", task);
 
     const [taskDetails, setTaskDetails] = useState({
-        title: task?.title || "",
-        description: task?.description || "",
-        priority: task?.priority || "",
-        startDate: task?.startDate || "",
-        limitDate: task?.limitDate || "",
-        category: task?.category ? task.category.name : "",
+        title: "",
+        description: "",
+        priority: "",
+        startDate: "",
+        limitDate: "",
+        category: null,
     });
-    
-    
-    const [stateId, setStateId] = useState(task?.stateId || "");
-    const [priority, setPriority] = useState(task?.priority || "");
-   
+
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [stateId, setStateId] = useState("");
+    const [priority, setPriority] = useState("");
 
     useEffect(() => {
         if (task) {
@@ -37,61 +36,51 @@ function EditTask() {
                 priority: task.priority || "",
                 startDate: task.startDate || "",
                 limitDate: task.limitDate || "",
-                category: task.category ? task.category.name : "",
+                category: task.category || null,
             });
-            setStateId(task?.stateId || "");
-            setPriority(task?.priority || "");
+            setSelectedCategory(task.category || null);
+            setStateId(task.stateId || "");
+            setPriority(task.priority || "");
         }
     }, [task]);
 
-
-    console.log("stateId:", stateId);
-    console.log("priority:", priority);
-
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+
         if (name === "category") {
-            // Verifica se o valor da categoria não é uma string vazia antes de criar o objeto
-            const category = value !== "" ? { name: value } : null;
-            setTaskDetails({ ...taskDetails, category: category });
+            const selectedCategory = categories.find(category => category.name === value) || null;
+            setSelectedCategory(selectedCategory);
         } else {
             setTaskDetails({ ...taskDetails, [name]: value });
         }
     };
-    
-    
-    
-    
 
     const handleDateChange = (event) => {
         const { name, value } = event.target;
+
         if (name === "startDate" && taskDetails.limitDate && value > taskDetails.limitDate) {
-            // Se a nova data de início for posterior à data limite, atualize a data limite também
             setTaskDetails({
                 ...taskDetails,
                 startDate: value,
-                limitDate: value // Define a data limite como a nova data de início
+                limitDate: value
             });
         } else {
             setTaskDetails({ ...taskDetails, [name]: value });
         }
     };
-    console.log("category:", taskDetails.category)
-    console.log("taskDetails:", taskDetails);
+
     const handleSaveTask = async () => {
         try {
-            // Atualiza a tarefa no backend usando o endpoint correto
             const response = await fetch(`http://localhost:8080/project_backend/rest/users/updatetask/${taskId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     token: token,
                 },
-                body: JSON.stringify(taskDetails),
+                body: JSON.stringify({ ...taskDetails, category: selectedCategory }),
             });
 
             if (response.ok) {
-                // Se a atualização for bem-sucedida, navega de volta para a página inicial
                 navigate("/home", { replace: true });
             } else {
                 const responseBody = await response.text();
@@ -102,16 +91,13 @@ function EditTask() {
         }
     };
 
-
-        // Função para lidar com a alteração do status da tarefa
-        const handlestateClick = (stateId) => {
-            setStateId(stateId);
-        };
+    const handlestateClick = (stateId) => {
+        setStateId(stateId);
+    };
     
-        // Função para lidar com a alteração da prioridade da tarefa
-        const handlePriorityClick = (priority) => {
-            setPriority(priority);
-        };
+    const handlePriorityClick = (priority) => {
+        setPriority(priority);
+    };
 
     return (
         <div className="edit-task">
@@ -178,7 +164,7 @@ function EditTask() {
                                     Choose an option
                                 </option>
                                 {categories.map((category, index) => (
-                                <option key={index} value={category}>{category}</option>
+                                <option key={index} value={category.name}>{category}</option>
                                 ))}
                             </select>
                         </div>

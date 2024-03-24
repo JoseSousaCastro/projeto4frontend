@@ -13,11 +13,14 @@ function TasksMain() {
     useEffect(() => {
         // Use uma função para acessar o estado atual da taskStore
         const tasksFromStore = taskStore.getState().tasks;
-        
+
+        // Filtre as tarefas cujo atributo erased seja false
+        const filteredTasks = tasksFromStore.filter(task => !task.erased);
+
         // Filtre as tarefas de acordo com o stateId
-        const todoTasks = tasksFromStore.filter(task => task.stateId === 100);
-        const doingTasks = tasksFromStore.filter(task => task.stateId === 200);
-        const doneTasks = tasksFromStore.filter(task => task.stateId === 300);
+        const todoTasks = filteredTasks.filter(task => task.stateId === 100);
+        const doingTasks = filteredTasks.filter(task => task.stateId === 200);
+        const doneTasks = filteredTasks.filter(task => task.stateId === 300);
 
         // Atualize o estado das tarefas com os valores filtrados
         setTasks(todoTasks);
