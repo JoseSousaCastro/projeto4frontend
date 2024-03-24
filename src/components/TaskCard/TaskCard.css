@@ -56,6 +56,12 @@
     color: var(--green2);
 }
 
+.task-title-solo-erased:hover {
+  text-decoration: none;
+  cursor: default;
+  color: var(--green3); /* ou a cor desejada */
+}
+
 .task-description-solo {
   display: -webkit-box;
   -webkit-box-orient: vertical;
