@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { userStore } from "../../stores/UserStore";
-import "../AddUser/AddUser.css";
+import "../RegisterUser/RegisterUser.css";
 
 
-function AddUser() {
+function RegisterUser() {
     const [inputs, setInputs] = useState({});
     const navigate = useNavigate();
-    const updateName = userStore(state => state.updateName);
+        
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -42,7 +41,6 @@ function AddUser() {
         // Registro bem-sucedido
         console.log("Registo feito com sucesso!");
         navigate('/users-list', { replace: true });
-        updateName(inputs.username);
     } else {
         const responseBody = await response.text();
         console.error("Erro no registo:", response.statusText, responseBody);
@@ -82,4 +80,4 @@ return (
     );
 }
 
-export default AddUser;
+export default RegisterUser;

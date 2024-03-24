@@ -1,11 +1,12 @@
 import React from "react";
 import '../index.css'
 import Header from "../components/Header/Header";
-import AddUser from "../components/AddUser/AddUser";
+import RegisterUser from "../components/RegisterUser/RegisterUser";
 import Footer from "../components/Footer/Footer";
 import AsideLogo from "../components/AsideLogo/AsideLogo";
 
-function UsersRegisterUser() {
+
+function RegisterUserPage() {
 
     return (
         <div className="Home" id="home-outer-container">
@@ -18,7 +19,7 @@ function UsersRegisterUser() {
                         <AsideLogo />
                     </div>
                     <div className="main-home-container">
-                        <AddUser />
+                        <RegisterUser />
                     </div>
                 </div>
                 <div className="footer-home-container">
@@ -29,4 +30,4 @@ function UsersRegisterUser() {
     );
 }
 
-export default UsersRegisterUser
+export default RegisterUserPage

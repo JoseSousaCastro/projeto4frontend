@@ -8,7 +8,7 @@ import TasksAddTask from './pages/TasksAddTask';
 import TasksDeleted from './pages/TasksDeleted';
 import TasksCategories from './pages/TasksCategories';
 import TasksEditTask from './pages/TasksEditTask';
-import UsersRegisterUser from './pages/UsersRegisterUser';
+import RegisterUserPage from './pages/RegisterUserPage';
 import UsersDeleted from './pages/UsersDeleted';
 import UsersEditUser from './pages/UsersEditUser';
 import UsersList from './pages/UsersList';
@@ -25,7 +25,7 @@ function App() {
       <Route path="/tasks-deleted" element={<TasksDeleted />} />
       <Route path="/tasks-categories" element={<TasksCategories />} />
       <Route path="/edit-task/:taskId" element={<TasksEditTask />} />
-      <Route path="/register-user" element={<UsersRegisterUser />} />
+      <Route path="/register-user" element={<RegisterUserPage />} />
       <Route path="/deleted-users" element={<UsersDeleted />} />
       <Route path="/edit-user/:userId" element={<UsersEditUser />} />
       <Route path="/users-list" element={<UsersList />} />
