@@ -26,3 +26,33 @@
     margin: 0;
     padding: 0;
   }
+
+  .panel {
+    height: 500px;
+    width: 300px;
+    border-radius: 10px;
+    margin: 20px 50px;
+    padding: 20px;
+    border: 2px solid var(--green3);
+    overflow: auto;
+}
+
+#categories {
+    background-color: var(--white);
+}
+
+.panel::-webkit-scrollbar-thumb {
+    background-color: var(--green2);
+    border-top-right-radius: 8px;
+}
+
+.panel::-webkit-scrollbar-track {
+    margin-right: 1px;
+    background-color: var(--white);
+    border-top-right-radius: 9px;
+}
+
+.panel::-webkit-scrollbar {
+    height: calc(100% - 2px);
+    padding-right: 1px;
+}
