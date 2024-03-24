@@ -86,13 +86,9 @@
 .task-del-restore {
   display: flex;
   justify-content: space-between; /* Distribui os itens uniformemente */
-}
-
-.task-delete,
-.task-restore {
   margin-top: auto; /* Empurra os itens para o final do container */
-  padding-top: 12px;
   padding-inline: 3px;
+
 }
 
 .task-delete {
@@ -107,7 +103,13 @@
   padding-right: 3px;
 }
 
-.restore-icon,
+.restore-icon {
+  padding-top: 5px;
+  height: 15px;
+  width: auto;
+  cursor: pointer;
+}
+
 .delete-icon,
 .erase-icon {
   height: 12px;

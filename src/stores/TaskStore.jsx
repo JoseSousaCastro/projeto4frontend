@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { userStore } from "./UserStore";
+import { categoryStore } from "./CategoryStore";
 
 export const taskStore = create(
     persist(
@@ -31,6 +32,7 @@ export const taskStore = create(
                 console.log("Tarefas armazenadas:", tasks);
                 set({ tasks });
             },
+
             fetchTasks: async () => {
                 try {
                     const response = await fetch("http://localhost:8080/project_backend/rest/users/tasks", {
