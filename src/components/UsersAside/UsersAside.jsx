@@ -6,7 +6,7 @@ import { userStore } from "../../stores/UserStore";
 
 function UsersAside() {
     const { users, fetchUsers } = userStore();
-    const [setUsers] = useState([]);
+
     const navigate = useNavigate();
 
     const [selectedUser, setSelectedUser] = useState("");
@@ -19,7 +19,6 @@ function UsersAside() {
         const getUsers = async () => {
             try {
                 const users = await fetchUsers();
-                setUsers(users);
             } catch (error) {
                 console.error("Error fetching users:", error);
             }
