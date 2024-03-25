@@ -4,7 +4,7 @@ import { categoryStore } from "../../stores/CategoryStore";
 import { userStore } from "../../stores/UserStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 
 function CategoriesAside() {
@@ -131,6 +131,9 @@ function CategoriesAside() {
     return (
         <div className="categories-aside">
             <div className="aside">
+                <div className="div-back-home">
+                    <Link to="/home" className="link-to-home">Back to tasks</Link>
+                </div>
                 <div className="add-category">
                     <label className="add-category-label" htmlFor="add-category-button">Add Category</label>
                     <div className="add-category-input-container">

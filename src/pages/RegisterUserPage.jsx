@@ -3,7 +3,7 @@ import '../index.css'
 import Header from "../components/Header/Header";
 import RegisterUser from "../components/RegisterUser/RegisterUser";
 import Footer from "../components/Footer/Footer";
-import AsideLogo from "../components/AsideLogo/AsideLogo";
+import AsideLogoUsers from "../components/AsideLogoUsers/AsideLogoUsers";
 
 
 function RegisterUserPage() {
@@ -16,7 +16,7 @@ function RegisterUserPage() {
                 </div>
                 <div className="aside-main-home-container">
                     <div className="aside-home-container">
-                        <AsideLogo />
+                        <AsideLogoUsers />
                     </div>
                     <div className="main-home-container">
                         <RegisterUser />

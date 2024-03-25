@@ -32,14 +32,14 @@
     width: 300px;
     min-height: 720px;
     max-height: 1000px;
-    padding-top: 80px;
+    padding-top: 40px;
     float: left;
     background-color: var(--light-grey);
     text-align: center;
 }
 
 .aside hr {
-    margin-block: 40px;
+    margin-block: 30px;
     width: 80%;
 }
 
@@ -111,4 +111,18 @@
 .action-button:hover {
     background-color: var(--green3);
     color: var(--white);
+}
+.div-back-home {
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+.link-to-home {
+    color: var(--green3);
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+.link-to-home:hover {
+    color: var(--green2);
 }

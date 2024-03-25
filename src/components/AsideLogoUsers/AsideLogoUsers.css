@@ -44,16 +44,16 @@
     height: 150px;
     cursor: pointer;
 }
-.div-back-home {
+.div-back-users-list {
     margin-top: 100px;
 }
-.link-to-home {
+.link-to-users-list {
     color: var(--green3);
     font-size: 13px;
     font-weight: bold;
     text-transform: uppercase;
     cursor: pointer;
 }
-.link-to-home:hover {
+.link-to-users-list:hover {
     color: var(--green2);
 }
