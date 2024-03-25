@@ -8,6 +8,7 @@ export default function UserCard({ user }) {
     const { fetchUsers } = userStore();
     const navigate = useNavigate();
     const token = userStore((state) => state.token);
+    const typeOfUser = userStore((state) => state.typeOfUser);
 
     const { username, firstName, lastName, visible } = user;
 
@@ -91,11 +92,13 @@ export default function UserCard({ user }) {
                     {firstName} {lastName}
                 </div>
             )}
+           
             {visible ? (
                 <div className="user-visible">
+                     {typeOfUser === 300 && (
                     <img src="multimedia/dark-cross-01.png" alt="Visible" className="visible-icon" onClick={handleEraseUser} />
+                    )}
                 </div>
-                
             ) : (
                 <div className="user-del-restore">
                     <div className="user-restore">

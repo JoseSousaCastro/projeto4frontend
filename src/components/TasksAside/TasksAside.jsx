@@ -1,7 +1,3 @@
-/* Add task - aside button
-Filter tasks by user - aside dropdown
-Filter tasks by category - aside dropdown */
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../TasksAside/TasksAside.css";
@@ -9,7 +5,7 @@ import { userStore } from "../../stores/UserStore";
 import { categoryStore } from "../../stores/CategoryStore";
 
 function TasksAside() {
-    const { users } = userStore(); // Obtém a lista de usuários
+    const { users, typeOfUser } = userStore(); // Obtém a lista de usuários
     const { categories } = categoryStore(); // Obtém a lista de categorias
     const navigate = useNavigate();
 
@@ -106,15 +102,22 @@ function TasksAside() {
                 <Link to="/add-task">
                     <button className="aside-button">Add Task</button>
                 </Link>
+                {typeOfUser === 300 && (
                 <Link to="/tasks-categories">
                     <button className="aside-button" id="categories-button">Categories</button>
                 </Link>
+                )}
+                {(typeOfUser === 300 || typeOfUser === 200) && (
                 <Link to="/tasks-deleted">
                     <button className="aside-button" id="deleted-tasks-button">Deleted Tasks</button>
                 </Link>
+                )}
                 </div>
                 {/* Dropdown menu para filtrar tarefas por usuário */}
+                {(typeOfUser === 300 || typeOfUser === 200) && (
                 <label className="dropdown-label">Filter by user</label>
+                )}
+                {(typeOfUser === 300 || typeOfUser === 200) && (
                 <div className="dropdown">
                     <select className="dropdown-select" onChange={(e) => setSelectedUser(e.target.value)}>
                         <option value="">Choose user</option>
@@ -127,12 +130,18 @@ function TasksAside() {
                         <button className="filter-button" onClick={handleFilterByUser}>Filter</button>
                     </div>
                     {/* Botão para deletar todas as tarefas do usuário selecionado */}
+                    {(typeOfUser === 300 && (
                     <div>
                         <button className="delete-all-user-tasks" onClick={handleDeleteAllUserTasks}>Delete All Tasks</button>
                     </div>
+                    ))}
                 </div>
+                )}
                 {/* Dropdown menu para filtrar tarefas por categoria */}
+                {(typeOfUser === 300 || typeOfUser === 200) && (
                 <label className="dropdown-label">Filter by category</label>
+                )}
+                {(typeOfUser === 300 || typeOfUser === 200) && (
                 <div className="dropdown">
                     <select className="dropdown-select" onChange={(e) => setSelectedCategory(e.target.value)}>
                         <option value="">Choose category</option>
@@ -145,6 +154,7 @@ function TasksAside() {
                         <button className="filter-button" onClick={handleFilterByCategory}>Filter</button>
                     </div>
                 </div>
+                )}
             </div>
         </div>
     );

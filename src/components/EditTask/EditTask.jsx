@@ -11,9 +11,8 @@ function EditTask() {
     const { taskId } = useParams();
     const token = userStore((state) => state.token);
     const task = taskStore((state) => state.tasks.find(task => task.id === taskId));
-    console.log("token:", token);
 
-    console.log("Task no edit task:", task);
+    const typeOfUser = userStore((state) => state.typeOfUser);
 
     const [taskDetails, setTaskDetails] = useState({
         title: "",
@@ -71,6 +70,11 @@ function EditTask() {
 
     const handleSaveTask = async () => {
         try {
+            // Verifica se o usuário é proprietário da tarefa
+            if (typeOfUser === 100 && task.ownerId !== userStore((state) => state.userId)) {
+            console.error("Error: Only the task owner can edit this task.");
+                return;
+            }
             const response = await fetch(`http://localhost:8080/project_backend/rest/users/updatetask/${taskId}`, {
                 method: "PUT",
                 headers: {

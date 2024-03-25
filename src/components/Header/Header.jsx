@@ -11,6 +11,7 @@ function Header() {
 
     const firstName = userStore(state => state.firstName);
     const photoURL = userStore(state => state.photoURL);
+    const typeOfUser = userStore(state => state.typeOfUser);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -39,7 +40,9 @@ function Header() {
                     <nav className="nav-menu-left">
                         <ul id="menu">
                             <li id="nav-tasks"><Link to="/home">Tasks</Link></li>
-                            <li id="nav-users"><Link to="/users-list">Users</Link></li>
+                            {typeOfUser === 200 || typeOfUser === 300 ? (
+                                <li id="nav-users"><Link to="/users-list">Users</Link></li>
+                            ) : null}
                         </ul>
                     </nav>
                 </div>

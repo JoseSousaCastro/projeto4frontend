@@ -11,6 +11,7 @@ export default function TaskCard({ task }) {
     const taskId = task.id;
     const { id, title, description, priority, erased } = task;
     const token = userStore((state) => state.token);
+    const typeOfUser = userStore((state) => state.typeOfUser);
 
     // Traduzindo a prioridade de int para string
     const translatePriority = (priorityInt) => {
@@ -125,19 +126,25 @@ export default function TaskCard({ task }) {
                 </Link>
             )}
             <div className="task-description-solo">{description}</div>
-            {erased ? (
+            {erased ? (                
                 <div className="task-del-restore">
+                    {(typeOfUser === 300 || typeOfUser === 200) && (
                     <div className="task-restore">
                         <img src="multimedia/reload1-03.png" alt="Restore" className="restore-icon" onClick={handleRestoreTask} />
                     </div>
+                    )}
+                    {typeOfUser === 300 && (
                     <div className="task-delete">
                         <img src="multimedia/dark-cross-01.png" alt="Delete" className="delete-icon" onClick={handleDeleteTask} />
                     </div>
+                    )}
                 </div>
-            ) : (
+            ) : (                
                 <div className="task-erase">
+                    {(typeOfUser === 300 || typeOfUser === 200) && (
                     <img src="multimedia/dark-cross-01.png" alt="Erase" className="erase-icon" onClick={handleEraseTask} />
-                </div>
+                    )}
+                </div>                
             )}
         </div>
     );

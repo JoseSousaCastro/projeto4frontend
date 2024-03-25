@@ -7,6 +7,7 @@ function EditUser() {
     const [inputs, setInputs] = useState({});
     const navigate = useNavigate();
     const { username } = useParams();
+    const typeOfUser = userStore((state) => state.typeOfUser);
 
     const token = userStore((state) => state.token);
 
@@ -78,21 +79,23 @@ function EditUser() {
                     <div className="editProfile-fieldsContainer">
                         <div className="left-fields-editProfile">
                             <label className="labels-edit-profile" id="email-editProfile-label">Email</label>
-                            <input type="email" className="editProfile-fields" id="email-editProfile" onChange={(e) => setInputs({...inputs, email: e.target.value})} required value={inputs.email || ""}></input>
+                            <input type="email" className="editProfile-fields" id="email-editProfile" onChange={(e) => setInputs({...inputs, email: e.target.value})} required value={inputs.email || ""} disabled={typeOfUser !== 300}></input>
                             <label className="labels-edit-profile" id="firstName-editProfile-label">First Name</label>
-                            <input type="text" className="editProfile-fields" id="firstName-editProfile" name="firstName" onChange={(e) => setInputs({...inputs, firstName: e.target.value})} required value={inputs.firstName || ""}></input>
+                            <input type="text" className="editProfile-fields" id="firstName-editProfile" name="firstName" onChange={(e) => setInputs({...inputs, firstName: e.target.value})} required value={inputs.firstName || ""} disabled={typeOfUser !== 300}></input>
                             <label className="labels-edit-profile" id="lastName-editProfile-label">Last Name</label>
-                            <input type="text" className="editProfile-fields" id="lastName-editProfile" name="lastName" onChange={(e) => setInputs({...inputs, lastName: e.target.value})} required value={inputs.lastName || ""}></input>
+                            <input type="text" className="editProfile-fields" id="lastName-editProfile" name="lastName" onChange={(e) => setInputs({...inputs, lastName: e.target.value})} required value={inputs.lastName || ""} disabled={typeOfUser !== 300}></input>
                             <label className="labels-edit-profile" id="phone-editProfile-label">Phone</label>
-                            <input type="text" className="editProfile-fields" id="phone-editProfile" name="phone" onChange={(e) => setInputs({...inputs, phone: e.target.value})} required value={inputs.phone || ""}></input>
+                            <input type="text" className="editProfile-fields" id="phone-editProfile" name="phone" onChange={(e) => setInputs({...inputs, phone: e.target.value})} required value={inputs.phone || ""} disabled={typeOfUser !== 300}></input>
                             <label className="labels-edit-profile" id="photoURL-editProfile-label">Photo URL</label>
-                            <input type="url" className="editProfile-fields" id="photoURL-editProfile" name="photoURL" onChange={(e) => setInputs({...inputs, photoURL: e.target.value})} required value={inputs.photoURL || ""}></input>
+                            <input type="url" className="editProfile-fields" id="photoURL-editProfile" name="photoURL" onChange={(e) => setInputs({...inputs, photoURL: e.target.value})} required value={inputs.photoURL || ""} disabled={typeOfUser !== 300}></input>
                         </div>
                     </div>
+                    {typeOfUser === 300 && (
                     <div className="editProfile-Buttons">
                         <button type="submit" id="profile-save-button">Save</button>
                         <button type="reset" id="profile-cancel-button" onClick={handleCancel}>Cancel</button>
                     </div>
+                    )}
                 </form>
             </div>
         </div>
