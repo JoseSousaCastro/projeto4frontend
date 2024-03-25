@@ -1,26 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Password/Password.css";
 import { userStore } from "../../stores/UserStore";
-import { useState } from "react";
 
 function Password() {
-    const [inputs, setInputs] = useState("");
+    const [inputs, setInputs] = useState({
+        currentPassword: "",
+        newPassword: "",
+        newPasswordConfirm: ""
+    });
     const username = userStore((state) => state.username);
     const token = userStore((state) => state.token);
-    const password = userStore((state) => state.password);
 
-    const updatePassword = inputs.currentPassword;
-    const updateNewPassword = inputs.newPassword;
-    const updateNewPasswordConfirm = inputs.newPasswordConfirm;
-
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setInputs({ ...inputs, [name]: value });
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
-        if (updateNewPassword !== updateNewPasswordConfirm) {
+        const { currentPassword, newPassword, newPasswordConfirm } = inputs;
+
+        if (newPassword !== newPasswordConfirm) {
             alert("Passwords do not match");
             return;
-        } else {
+        }
 
         try {
             const response = await fetch(
@@ -29,49 +32,48 @@ function Password() {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
-                        token: token,
-                        oldPassword: updatePassword,
-                        newPassword: updateNewPassword,
-                    },
-                    body: JSON.stringify(password),
+                        "token": token,
+                        "oldpassword": currentPassword,
+                        "newpassword": newPassword
+                    }
                 }
             );
 
             if (response.ok) {
-                const password = await response.json();
-                updatePassword = password;
+                alert("Password updated successfully");
             } else {
                 const responseBody = await response.text();
                 console.error("Error updating password:", response.statusText, responseBody);
+                alert("Failed to update password");
             }
         } catch (error) {
             console.error("Error updating password:", error);
+            alert("Failed to update password");
         }
-    }
     };
 
     const handleCancel = (event) => {
-        event.preventDefault();        
-    }
-    
+        event.preventDefault();
+    };
+
     return (
-            <div className="passwordPanel">
-                <form className="password-register" id="password-form" onSubmit={handleSubmit}>
-                    <div className="password-fieldsContainer">
-                            <label className="labels-password" id="change-password-label">Change Password</label>
-                            <label className="labels-password" id="currentPass-password-label">Current password</label>
-                            <input type="password" className="password-fields" id="currentPassword-password" name="currentPassword" onChange={(e) => updatePassword(e.target.value)}/>
-                            <label className="labels-password" id="newPass-password-label">New password</label>
-                            <input type="password" className="password-fields" id="newPassword-password" name="newPassword" onChange={(e) => updateNewPassword(e.target.value)}/>
-                            <label className="labels-password" id="newPassConfirm-password-label">Confirm new password</label>
-                            <input type="password" className="password-fields" id="newPasswordConfirm-password" name="newPasswordConfirm" onChange={(e) => updateNewPasswordConfirm(e.target.value)}/>
-                    </div>
-                    <div className="password-Buttons">
-                        <button type="submit" id="password-save-button">Save</button>
-                        <button type="reset" id="password-cancel-button" onClick={handleCancel}>Cancel</button>
-                    </div>
-                </form>
-            </div>
+        <div className="passwordPanel">
+            <form className="password-register" id="password-form" onSubmit={handleSubmit}>
+                <div className="password-fieldsContainer">
+                    <label className="labels-password" id="change-password-label">Change Password</label>
+                    <label className="labels-password" id="currentPass-password-label">Current password</label>
+                    <input type="password" className="password-fields" id="currentPassword-password" name="currentPassword" value={inputs.currentPassword} onChange={handleChange} />
+                    <label className="labels-password" id="newPass-password-label">New password</label>
+                    <input type="password" className="password-fields" id="newPassword-password" name="newPassword" value={inputs.newPassword} onChange={handleChange} />
+                    <label className="labels-password" id="newPassConfirm-password-label">Confirm new password</label>
+                    <input type="password" className="password-fields" id="newPasswordConfirm-password" name="newPasswordConfirm" value={inputs.newPasswordConfirm} onChange={handleChange} />
+                </div>
+                <div className="password-Buttons">
+                    <button type="submit" id="password-save-button">Save</button>
+                    <button type="button" id="password-cancel-button" onClick={handleCancel}>Cancel</button>
+                </div>
+            </form>
+        </div>
     );
 }
 
